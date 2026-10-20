@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Belle et la Bête - Outil de Révision 6ème (PDF enseignant, 1806)</title>
+    <title>La Belle et la Bête - Outil de Révision 6ème (Wikisource 1883)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
@@ -63,7 +63,7 @@
                         <h1 class="font-serif text-base sm:text-xl font-bold tracking-wide bg-gradient-to-r from-amber-200 to-rose-300 bg-clip-text text-transparent">
                             La Belle et la Bête
                         </h1>
-                        <p class="text-[10px] sm:text-xs text-amber-200/80">Révision 6ème — comparaison avec le PDF enseignant (Barba, 1806)</p>
+                        <p class="text-[10px] sm:text-xs text-amber-200/80">Révision 6ème - Jeanne-Marie Leprince de Beaumont (1883)</p>
                     </div>
                 </div>
                 
@@ -76,7 +76,7 @@
                     </button>
                     <button onclick="switchTab('exercises')" id="tab-btn-exercises" class="tab-btn flex items-center space-x-1 sm:space-x-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-slate-800">
                         <span>✏️</span>
-                        <span class="hidden sm:inline">Révisions SQ1 + activités</span>
+                        <span class="hidden sm:inline">Révisions SQ1 (10 Questions)</span>
                         <span class="sm:hidden">Révisions</span>
                     </button>
                     <button onclick="switchTab('reader')" id="tab-btn-reader" class="tab-btn flex items-center space-x-1 sm:space-x-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-slate-800">
@@ -102,7 +102,7 @@
                          class="w-20 h-24 object-cover rounded-xl shadow-lg border-2 border-amber-600/50 flex-shrink-0"
                          onerror="this.onerror=null; this.src='https://placehold.co/120x150/78350f/ffffff?text=Leprince+de+Beaumont';">
                     <div>
-                        <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-200/70 px-2.5 py-1 rounded-full border border-amber-300/50">Version pédagogique — source PDF enseignant (1806)</span>
+                        <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-200/70 px-2.5 py-1 rounded-full border border-amber-300/50">Version Officielle de Référence (1883)</span>
                         <h2 class="font-serif text-xl sm:text-2xl font-bold text-slate-900 mt-1">Jeanne-Marie Leprince de Beaumont</h2>
                         <p class="text-xs sm:text-sm text-slate-600 italic">Écrivaine et éducatrice française (1711 – 1780)</p>
                         <p class="text-xs text-amber-900/90 font-medium mt-1">Séquence 1 : « Les apparences trompeuses des monstres »</p>
@@ -185,7 +185,7 @@
                             </div>
                         </div>
                         <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
-                            De retour en hâte, Belle trouve la Bête mourante de chagrin. Comprenant qu'elle l'aime pour sa vertu, elle accepte de l'épouser. La Bête se transforme alors en un prince magnifique. Dans la version du PDF enseignant, la fée transforme ensuite les deux sœurs en statues, en leur laissant leur raison jusqu'à ce qu'elles reconnaissent leurs fautes.
+                            De retour en hâte, Belle trouve la Bête mourante de chagrin. Comprenant qu'elle l'aime pour sa vertu, elle accepte de l'épouser. La Bête se transforme alors en un prince magnifique, libéré de sa malédiction.
                         </p>
                     </div>
 
@@ -222,7 +222,7 @@
                     <div class="relative">
                         <div class="absolute -left-[31px] top-0.5 bg-amber-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shadow">5</div>
                         <h4 class="font-bold text-amber-900 text-sm sm:text-base">Délivrance du Sortilège</h4>
-                        <p class="text-xs sm:text-sm text-slate-600">L'aveu d'amour de Belle transforme le monstre en Prince ; la fée punit ensuite les deux sœurs.</p>
+                        <p class="text-xs sm:text-sm text-slate-600">L'aveu d'amour de Belle transforme le monstre en Prince.</p>
                     </div>
                 </div>
             </div>
@@ -266,50 +266,10 @@
                 </div>
             </div>
 
-            <!-- COMPRÉHENSION : VRAI / FAUX -->
-            <div class="border border-indigo-200 rounded-xl p-5 bg-indigo-50/60 space-y-4">
-                <div class="flex justify-between items-start flex-wrap gap-2">
-                    <div>
-                        <span class="bg-indigo-600 text-white text-xs font-bold px-2.5 py-1 rounded-md">Compréhension</span>
-                        <h3 class="font-serif text-base sm:text-lg font-bold text-slate-900 mt-1">Vrai ou faux : je vérifie ma lecture</h3>
-                        <p class="text-xs text-slate-600">Choisissez une réponse pour chaque affirmation. Le corrigé apparaît immédiatement.</p>
-                    </div>
-                    <span id="true-false-score" class="text-xs font-bold bg-white text-indigo-900 px-3 py-1 rounded-full border border-indigo-200">0 / 6</span>
-                </div>
-                <div id="true-false-container" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
-            </div>
-
-            <!-- COMPRÉHENSION : REMETTRE DANS L'ORDRE -->
-            <div class="border border-emerald-200 rounded-xl p-5 bg-emerald-50/60 space-y-4">
-                <div class="flex justify-between items-start flex-wrap gap-2">
-                    <div>
-                        <span class="bg-emerald-600 text-white text-xs font-bold px-2.5 py-1 rounded-md">Méthode</span>
-                        <h3 class="font-serif text-base sm:text-lg font-bold text-slate-900 mt-1">Remets les événements dans l’ordre</h3>
-                        <p class="text-xs text-slate-600">Utilisez les flèches pour reconstruire les grandes étapes du conte, puis vérifiez.</p>
-                    </div>
-                    <button onclick="resetOrderExercise()" class="text-xs bg-white border border-slate-300 px-3 py-1.5 rounded-lg font-medium hover:bg-slate-100 transition shadow-sm">Réinitialiser</button>
-                </div>
-                <div id="order-container" class="space-y-2"></div>
-                <div class="flex items-center justify-between flex-wrap gap-2">
-                    <button onclick="checkOrderExercise()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-xs font-bold transition">Vérifier l’ordre</button>
-                    <span id="order-feedback" class="text-xs font-semibold text-emerald-800">À vous de jouer !</span>
-                </div>
-            </div>
-
-            <!-- COMPRÉHENSION : QUI PARLE ? -->
-            <div class="border border-violet-200 rounded-xl p-5 bg-violet-50/60 space-y-4">
-                <div>
-                    <span class="bg-violet-600 text-white text-xs font-bold px-2.5 py-1 rounded-md">Personnages</span>
-                    <h3 class="font-serif text-base sm:text-lg font-bold text-slate-900 mt-1">Qui parle ?</h3>
-                    <p class="text-xs text-slate-600">Associez chaque réplique au bon personnage.</p>
-                </div>
-                <div id="speaker-container" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
-            </div>
-
             <!-- GRAMMAR QUIZZES (S2, S4, S6, S9 - 10 QUESTIONS) -->
             <div class="space-y-4">
                 <div class="flex items-center justify-between flex-wrap gap-2">
-                    <h3 class="font-serif text-lg font-bold text-slate-900">QCM complet d'étude de la langue (10 questions)</h3>
+                    <h3 class="font-serif text-lg font-bold text-slate-900">QCM Complet d'Étude de la Langue (10 Questions)</h3>
                     <div class="flex flex-wrap gap-1.5">
                         <button id="qtab-all" onclick="showQuizSection('all')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-600 text-white">Toutes (10)</button>
                         <button id="qtab-s2" onclick="showQuizSection('s2')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200">S2 (Peur)</button>
@@ -338,7 +298,7 @@
                          class="w-12 h-14 object-cover rounded-lg shadow-md border border-amber-600/40"
                          onerror="this.onerror=null; this.src='https://placehold.co/100x120/854d0e/ffffff?text=Beaumont';">
                     <div>
-                        <span class="text-[10px] font-bold uppercase tracking-wider text-amber-700 bg-amber-200/60 px-2 py-0.5 rounded-full">Version pédagogique adaptée — PDF enseignant (Barba, 1806)</span>
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-amber-700 bg-amber-200/60 px-2 py-0.5 rounded-full">Texte Intégral Officiel (Wikisource 1883)</span>
                         <h2 class="font-serif text-base sm:text-xl font-bold text-slate-900">Lecture Interactive du Conte</h2>
                         <p class="text-xs text-slate-600">Cliquez sur une phrase pour l'écouter ou utilisez la lecture continue.</p>
                     </div>
@@ -488,111 +448,10 @@
                         { id: 75, text: "Le dixième jour, Belle rêva que la Bête se mourait de chagrin dans le jardin du palais. Prise de remords, elle utilisa son anneau pour revenir instantanément." },
                         { id: 76, text: "Trouvant la Bête étendue sans connaissance sur l'herbe, Belle se jeta sur elle en pleurant : « Non, ma chère Bête, vous ne mourrez pas ! Vous vivrez pour devenir mon époux, je vous donne ma main ! »" },
                         { id: 77, text: "A peine eut-elle prononcé ces paroles qu'un feu d'artifice éclata, et la Bête disparut pour laisser place à un jeune Prince plus beau que le jour, qui la remercia d'avoir brisé le méchant sortilège en préférant la bonté du cœur à la beauté du visage." },
-                        { id: 78, text: "Au palais, Belle retrouva son père et toute sa famille ; une grande fée la récompensa pour avoir préféré la vertu à la beauté et à l'esprit." },
-                        { id: 79, text: "La fée dit aux deux sœurs : « Devenez deux statues ; mais conservez toute votre raison sous la pierre qui vous enveloppera. »" },
-                        { id: 80, text: "Les deux sœurs demeurèrent à la porte du palais jusqu'à ce qu'elles reconnussent leurs fautes ; le prince épousa Belle, qui vécut heureuse dans un bonheur fondé sur la vertu." }
                     ]
                 ]
             }
         ];
-
-        const trueFalseData = [
-            { q: "Le marchand a six enfants : trois garçons et trois filles.", answer: true, exp: "C’est indiqué au début du conte." },
-            { q: "Belle demande à son père de lui rapporter des robes et des bijoux.", answer: false, exp: "Elle demande seulement une rose." },
-            { q: "La Bête accueille Belle dans un palais où elle est traitée avec respect.", answer: true, exp: "La Bête la reçoit comme une reine et lui rend visite chaque soir." },
-            { q: "Les deux sœurs sont heureuses du bonheur de Belle et l’aident sans arrière-pensée.", answer: false, exp: "Elles sont jalouses et la retiennent pour retarder son retour." },
-            { q: "Dans le PDF de l’enseignant, les deux sœurs deviennent des statues.", answer: true, exp: "La fée les condamne à rester statues jusqu’à la reconnaissance de leurs fautes." },
-            { q: "Belle choisit la bonté du cœur plutôt que la beauté extérieure.", answer: true, exp: "C’est la morale essentielle du conte." }
-        ];
-
-        const orderItems = [
-            "Le marchand perd sa fortune et la famille part à la campagne.",
-            "Le père cueille une rose dans le palais et rencontre la Bête.",
-            "Belle accepte de se rendre au palais à la place de son père.",
-            "Les sœurs retiennent Belle et retardent son retour.",
-            "Belle avoue son amour ; la Bête devient un prince et les sœurs sont changées en statues."
-        ];
-        let orderState = [2, 0, 4, 1, 3];
-
-        const speakerData = [
-            { q: "« Je vous prie de m’apporter une rose. »", opts: ["Belle", "La Bête", "Une sœur"], ans: 0 },
-            { q: "« Vous êtes bien ingrat : vous me volez mes roses. »", opts: ["Le marchand", "La Bête", "Le prince"], ans: 1 },
-            { q: "« Devenez deux statues, mais conservez toute votre raison. »", opts: ["Belle", "Le marchand", "La grande fée"], ans: 2 },
-            { q: "« Vous vivrez pour devenir mon époux. »", opts: ["Belle", "Une sœur", "La servante"], ans: 0 }
-        ];
-
-        function renderTrueFalse() {
-            const box = document.getElementById('true-false-container');
-            if (!box) return;
-            box.innerHTML = '';
-            trueFalseData.forEach((item, idx) => {
-                const card = document.createElement('div');
-                card.className = 'bg-white rounded-lg border border-indigo-100 p-3 space-y-2';
-                card.innerHTML = `<p class="text-xs sm:text-sm font-medium text-slate-800"><span class="font-bold text-indigo-700">${idx + 1}.</span> ${item.q}</p><div class="flex gap-2"><button class="tf-btn flex-1 border border-slate-200 rounded-md px-2 py-1 text-xs font-bold hover:bg-emerald-50" onclick="answerTrueFalse(${idx}, true, this)">Vrai</button><button class="tf-btn flex-1 border border-slate-200 rounded-md px-2 py-1 text-xs font-bold hover:bg-rose-50" onclick="answerTrueFalse(${idx}, false, this)">Faux</button></div><p id="tf-feedback-${idx}" class="hidden text-xs font-semibold"></p>`;
-                box.appendChild(card);
-            });
-        }
-        function answerTrueFalse(idx, answer, button) {
-            const item = trueFalseData[idx];
-            const feedback = document.getElementById('tf-feedback-' + idx);
-            const buttons = button.parentElement.querySelectorAll('button');
-            buttons.forEach(b => b.disabled = true);
-            button.classList.add(answer === item.answer ? 'bg-emerald-100' : 'bg-rose-100');
-            feedback.className = 'text-xs font-semibold ' + (answer === item.answer ? 'text-emerald-700' : 'text-rose-700');
-            feedback.innerText = (answer === item.answer ? '✅ Bonne réponse. ' : '❌ À revoir. ') + item.exp;
-            const score = [...document.querySelectorAll('#true-false-container button:disabled')].filter(b => b.classList.contains('bg-emerald-100')).length;
-            document.getElementById('true-false-score').innerText = `${score} / ${trueFalseData.length}`;
-        }
-        function renderOrderExercise() {
-            const box = document.getElementById('order-container');
-            if (!box) return;
-            box.innerHTML = '';
-            orderState.forEach((itemIndex, position) => {
-                const row = document.createElement('div');
-                row.className = 'flex items-center gap-2 bg-white border border-emerald-100 rounded-lg p-2';
-                row.innerHTML = `<span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold flex items-center justify-center">${position + 1}</span><span class="flex-1 text-xs sm:text-sm text-slate-700">${orderItems[itemIndex]}</span><button onclick="moveOrder(${position}, -1)" class="px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 text-xs" aria-label="Monter">↑</button><button onclick="moveOrder(${position}, 1)" class="px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 text-xs" aria-label="Descendre">↓</button>`;
-                box.appendChild(row);
-            });
-        }
-        function moveOrder(position, direction) {
-            const target = position + direction;
-            if (target < 0 || target >= orderState.length) return;
-            [orderState[position], orderState[target]] = [orderState[target], orderState[position]];
-            document.getElementById('order-feedback').innerText = 'Ordre modifié.';
-            renderOrderExercise();
-        }
-        function resetOrderExercise() {
-            orderState = [2, 0, 4, 1, 3];
-            document.getElementById('order-feedback').innerText = 'À vous de jouer !';
-            renderOrderExercise();
-        }
-        function checkOrderExercise() {
-            const correct = orderState.every((item, index) => item === index);
-            const feedback = document.getElementById('order-feedback');
-            feedback.className = 'text-xs font-semibold ' + (correct ? 'text-emerald-700' : 'text-rose-700');
-            feedback.innerText = correct ? '✅ Excellent ! Les cinq étapes sont dans le bon ordre.' : '❌ Ce n’est pas encore le bon ordre. Relisez la frise et essayez encore.';
-        }
-        function renderSpeakerExercise() {
-            const box = document.getElementById('speaker-container');
-            if (!box) return;
-            box.innerHTML = '';
-            speakerData.forEach((item, idx) => {
-                const card = document.createElement('div');
-                card.className = 'bg-white rounded-lg border border-violet-100 p-3 space-y-2';
-                const options = item.opts.map((opt, optIdx) => `<button onclick="answerSpeaker(${idx}, ${optIdx}, this)" class="speaker-option border border-slate-200 rounded-md px-2 py-1 text-xs font-medium hover:bg-violet-50">${opt}</button>`).join('');
-                card.innerHTML = `<p class="text-xs sm:text-sm italic text-slate-800">${item.q}</p><div class="flex flex-wrap gap-2">${options}</div><p id="speaker-feedback-${idx}" class="hidden text-xs font-semibold"></p>`;
-                box.appendChild(card);
-            });
-        }
-        function answerSpeaker(idx, selected, button) {
-            const item = speakerData[idx];
-            const feedback = document.getElementById('speaker-feedback-' + idx);
-            button.parentElement.querySelectorAll('button').forEach(b => b.disabled = true);
-            const correct = selected === item.ans;
-            button.classList.add(correct ? 'bg-emerald-100' : 'bg-rose-100');
-            feedback.className = 'text-xs font-semibold ' + (correct ? 'text-emerald-700' : 'text-rose-700');
-            feedback.innerText = correct ? '✅ Bonne réponse.' : `❌ La bonne réponse est : ${item.opts[item.ans]}.`;
-        }
 
         // LEXICAL EXERCISE DATA (FEAR / ANGER WORDS)
         const lexicalWordsData = [
@@ -648,9 +507,6 @@
         window.onload = function() {
             renderInteractiveText();
             renderLexicalExercise();
-            renderTrueFalse();
-            renderOrderExercise();
-            renderSpeakerExercise();
             switchTab('summary'); // Default tab set to 'summary' as requested
         };
 
