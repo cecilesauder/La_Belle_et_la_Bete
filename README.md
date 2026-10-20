@@ -2,22 +2,27 @@
 
 Outil interactif de révision pour l’étude du conte **La Belle et la Bête** de Jeanne-Marie Leprince de Beaumont.
 
-## Version retenue
+## Deux versions du conte
 
-Conformément aux indications de l’enseignant, la page utilise uniquement la version **Wikisource 1883** de Jeanne-Marie Leprince de Beaumont. Le PDF Barba 1806 transmis précédemment n’est pas utilisé comme version de travail pour les élèves, afin d’éviter de mélanger deux éditions du conte.
+Pour éviter toute confusion avec le document utilisé en classe, le lecteur propose désormais deux éditions clairement séparées :
 
-Le texte de lecture reste présenté dans le format pédagogique interactif du projet : les phrases sont cliquables et peuvent être écoutées individuellement ou en lecture continue.
+- **Wikisource 1883** : la version indiquée dans la consigne de recherche de Pronote ;
+- **PDF Pronote — Barba 1806** : la version du document PDF donné dans Pronote, avec notamment le dénouement où les deux sœurs deviennent des statues.
+
+Dans l’onglet **Texte intégral**, les boutons **Wikisource 1883** et **PDF Pronote — Barba 1806** permettent de changer d’édition. L’étiquette et la description de la source active sont mises à jour automatiquement. La lecture audio fonctionne avec l’édition sélectionnée.
+
+Les deux éditions sont volontairement conservées séparément : les élèves peuvent ainsi réviser la version qu’ils ont effectivement lue sans mélanger les formulations ni les dénouements.
 
 ## Exercices ciblés sur la SQ1
 
-Les exercices suivent les séances d’étude de la langue demandées :
+Les exercices sont communs aux deux éditions et suivent les séances d’étude de la langue demandées :
 
 - **S2 — vocabulaire de la peur** : repérer les mots exprimant la peur, la terreur ou la fureur ;
 - **S4 — verbe conjugué** : reconnaître le verbe conjugué et son temps ;
 - **S6 — sujet du verbe** : identifier le sujet, y compris lorsque le sujet est inversé ;
 - **S9 — noms et adjectifs** : distinguer les classes grammaticales et repérer les adjectifs qualificatifs.
 
-L’onglet Révisions contient le champ lexical interactif et un QCM de 10 questions réparties entre S2, S4, S6 et S9. Les exercices de compréhension générale ajoutés lors d’une étape précédente ont été retirés pour rester aligné sur les consignes de l’enseignant.
+L’onglet Révisions contient le champ lexical interactif et un QCM de 10 questions réparties entre S2, S4, S6 et S9.
 
 ## Fichiers
 
