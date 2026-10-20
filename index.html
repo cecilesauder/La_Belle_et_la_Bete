@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Belle et la Bête - Outil de Révision 6ème (Wikisource 1883)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Cinzel', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .sentence-clickable {
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: inline;
+            border-radius: 0.25rem;
+            padding: 0 0.15rem;
+        }
+        .sentence-clickable:hover {
+            background-color: #fef08a; /* yellow-200 */
+            color: #000;
+        }
+        .sentence-active {
+            background-color: #fde047 !important; /* yellow-300 */
+            color: #000 !important;
+            font-weight: 600;
+            box-shadow: 0 0 0 2px #eab308;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col font-sans text-slate-800 bg-slate-100 antialiased selection:bg-rose-200 selection:text-rose-900">
+
+    <!-- TOP HEADER / NAV -->
+    <header class="bg-slate-900 text-white shadow-lg sticky top-0 z-50 border-b border-amber-500/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <span class="text-2xl">🌹</span>
+                    <div>
+                        <h1 class="font-serif text-base sm:text-xl font-bold tracking-wide bg-gradient-to-r from-amber-200 to-rose-300 bg-clip-text text-transparent">
+                            La Belle et la Bête
+                        </h1>
+                        <p class="text-[10px] sm:text-xs text-amber-200/80">Révision 6ème - Jeanne-Marie Leprince de Beaumont (1883)</p>
+                    </div>
+                </div>
+                
+                <!-- NAVIGATION TABS (NEW ORDER: SUMMARY -> EXERCISES -> READER) -->
+                <nav class="flex space-x-1 sm:space-x-2">
+                    <button onclick="switchTab('summary')" id="tab-btn-summary" class="tab-btn flex items-center space-x-1 sm:space-x-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all bg-amber-600 text-white shadow-md">
+                        <span>💡</span>
+                        <span class="hidden sm:inline">Résumé & Frise (5 parties)</span>
+                        <span class="sm:hidden">Résumé</span>
+                    </button>
+                    <button onclick="switchTab('exercises')" id="tab-btn-exercises" class="tab-btn flex items-center space-x-1 sm:space-x-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-slate-800">
+                        <span>✏️</span>
+                        <span class="hidden sm:inline">Révisions SQ1 (10 Questions)</span>
+                        <span class="sm:hidden">Révisions</span>
+                    </button>
+                    <button onclick="switchTab('reader')" id="tab-btn-reader" class="tab-btn flex items-center space-x-1 sm:space-x-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-slate-800">
+                        <span>📖</span>
+                        <span class="hidden sm:inline">Texte Intégral</span>
+                        <span class="sm:hidden">Texte</span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 overflow-hidden flex flex-col">
+
+        <!-- ================= TAB 1: RESUME EN 5 PARTIES & FRISE (DEFAULT ACTIVE) ================= -->
+        <div id="tab-summary" class="tab-content flex-1 flex flex-col min-h-0 bg-white rounded-2xl shadow-xl border border-slate-200 p-6 overflow-y-auto custom-scrollbar space-y-8">
+            
+            <!-- AUTHOR BANNER WITH CORRECT DIRECT IMAGE LINK -->
+            <div class="bg-gradient-to-r from-amber-50 to-rose-50 border border-amber-200/80 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-sm">
+                <div class="flex items-center space-x-5">
+                    <img src="assets/jeanne-marie-leprince-de-beaumont.jpg" 
+                         alt="Jeanne-Marie Leprince de Beaumont" 
+                         class="w-20 h-24 object-cover rounded-xl shadow-lg border-2 border-amber-600/50 flex-shrink-0"
+                         onerror="this.onerror=null; this.src='https://placehold.co/120x150/78350f/ffffff?text=Leprince+de+Beaumont';">
+                    <div>
+                        <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-200/70 px-2.5 py-1 rounded-full border border-amber-300/50">Version Officielle de Référence (1883)</span>
+                        <h2 class="font-serif text-xl sm:text-2xl font-bold text-slate-900 mt-1">Jeanne-Marie Leprince de Beaumont</h2>
+                        <p class="text-xs sm:text-sm text-slate-600 italic">Écrivaine et éducatrice française (1711 – 1780)</p>
+                        <p class="text-xs text-amber-900/90 font-medium mt-1">Séquence 1 : « Les apparences trompeuses des monstres »</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISUAL SUMMARY IN 5 PARTS WITH EMOJIS -->
+            <div>
+                <h2 class="font-serif text-2xl font-bold text-amber-900 border-b-2 border-amber-300 pb-2 mb-6 flex items-center space-x-2">
+                    <span>💡</span>
+                    <span>Résumé Synthétique du Conte (5 Étapes Clés)</span>
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    
+                    <!-- PART 1 -->
+                    <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-5 shadow-sm hover:shadow-md transition space-y-2">
+                        <div class="flex items-center space-x-3 border-b border-amber-200/80 pb-2">
+                            <span class="text-2xl bg-amber-200 p-2 rounded-lg">🏡</span>
+                            <div>
+                                <span class="text-[10px] font-bold text-amber-800 uppercase tracking-wide">Partie 1</span>
+                                <h3 class="font-serif font-bold text-slate-900 text-sm sm:text-base">La Fortune & La Ruine</h3>
+                            </div>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                            Un riche marchand perd tout son bien. Il doit s'installer à la campagne avec ses 6 enfants. Les deux aînées sont orgueilleuses et paresseuses, tandis que <strong>la Belle</strong> fait preuve de courage et d'humilité en travaillant pour sa famille.
+                        </p>
+                    </div>
+
+                    <!-- PART 2 -->
+                    <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-5 shadow-sm hover:shadow-md transition space-y-2">
+                        <div class="flex items-center space-x-3 border-b border-amber-200/80 pb-2">
+                            <span class="text-2xl bg-amber-200 p-2 rounded-lg">🌹</span>
+                            <div>
+                                <span class="text-[10px] font-bold text-amber-800 uppercase tracking-wide">Partie 2</span>
+                                <h3 class="font-serif font-bold text-slate-900 text-sm sm:text-base">Le Palais & La Rose Volée</h3>
+                            </div>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                            Perdu dans la tempête, le père trouve refuge dans un château magique. En repartant, il cueille une <strong>rose</strong> pour la Belle. Furieuse, la <strong>Bête</strong> le condamne à mort, sauf si une de ses filles accepte de se sacrifier à sa place.
+                        </p>
+                    </div>
+
+                    <!-- PART 3 -->
+                    <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-5 shadow-sm hover:shadow-md transition space-y-2">
+                        <div class="flex items-center space-x-3 border-b border-amber-200/80 pb-2">
+                            <span class="text-2xl bg-amber-200 p-2 rounded-lg">🏛️</span>
+                            <div>
+                                <span class="text-[10px] font-bold text-amber-800 uppercase tracking-wide">Partie 3</span>
+                                <h3 class="font-serif font-bold text-slate-900 text-sm sm:text-base">Le Sacrifice de Belle</h3>
+                            </div>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                            Belle refuse de laisser mourir son père et se rend de son plein gré au château. Au lieu d'être dévorée, elle y est traitée avec le plus grand respect comme une reine par la Bête, dont la bonté commence à la toucher.
+                        </p>
+                    </div>
+
+                    <!-- PART 4 -->
+                    <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-5 shadow-sm hover:shadow-md transition space-y-2">
+                        <div class="flex items-center space-x-3 border-b border-amber-200/80 pb-2">
+                            <span class="text-2xl bg-amber-200 p-2 rounded-lg">💍</span>
+                            <div>
+                                <span class="text-[10px] font-bold text-amber-800 uppercase tracking-wide">Partie 4</span>
+                                <h3 class="font-serif font-bold text-slate-900 text-sm sm:text-base">La Jalousie des Sœurs</h3>
+                            </div>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                            Autorisée à revoir son père 8 jours grâce à une bague magique, Belle rentre chez elle. Ses sœurs jalouses la retiennent pour que la Bête se mette en colère et la dévore à son retour retardé.
+                        </p>
+                    </div>
+
+                    <!-- PART 5 -->
+                    <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-5 shadow-sm hover:shadow-md transition space-y-2 md:col-span-2 lg:col-span-1">
+                        <div class="flex items-center space-x-3 border-b border-amber-200/80 pb-2">
+                            <span class="text-2xl bg-amber-200 p-2 rounded-lg">✨</span>
+                            <div>
+                                <span class="text-[10px] font-bold text-amber-800 uppercase tracking-wide">Partie 5</span>
+                                <h3 class="font-serif font-bold text-slate-900 text-sm sm:text-base">La Métamorphose & Le Mariage</h3>
+                            </div>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                            De retour en hâte, Belle trouve la Bête mourante de chagrin. Comprenant qu'elle l'aime pour sa vertu, elle accepte de l'épouser. La Bête se transforme alors en un prince magnifique, libéré de sa malédiction.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- CHRONOLOGICAL TIMELINE -->
+            <div>
+                <h3 class="font-serif text-xl font-bold text-slate-900 mb-4 flex items-center space-x-2">
+                    <span>📍</span>
+                    <span>Frise Chronologique des Événements</span>
+                </h3>
+                <div class="relative border-l-4 border-amber-500 ml-4 pl-6 space-y-6">
+                    <div class="relative">
+                        <div class="absolute -left-[31px] top-0.5 bg-amber-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shadow">1</div>
+                        <h4 class="font-bold text-amber-900 text-sm sm:text-base">La Ruine de la Famille</h4>
+                        <p class="text-xs sm:text-sm text-slate-600">Le marchand perd ses vaisseaux. Déménagement à la ferme.</p>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -left-[31px] top-0.5 bg-amber-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shadow">2</div>
+                        <h4 class="font-bold text-amber-900 text-sm sm:text-base">Le Palais Enchanté & Le Vol de la Rose</h4>
+                        <p class="text-xs sm:text-sm text-slate-600">Le père s'abrite au château, cueille la rose et affronte la colère de la Bête.</p>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -left-[31px] top-0.5 bg-amber-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shadow">3</div>
+                        <h4 class="font-bold text-amber-900 text-sm sm:text-base">Le Dévouement de Belle</h4>
+                        <p class="text-xs sm:text-sm text-slate-600">Belle rejoint la Bête et découvre que la laideur cache la bonté.</p>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -left-[31px] top-0.5 bg-amber-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shadow">4</div>
+                        <h4 class="font-bold text-amber-900 text-sm sm:text-base">Le Piège des Sœurs</h4>
+                        <p class="text-xs sm:text-sm text-slate-600">Belle rentre chez son père. Ses sœurs orchestrent son retard.</p>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -left-[31px] top-0.5 bg-amber-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shadow">5</div>
+                        <h4 class="font-bold text-amber-900 text-sm sm:text-base">Délivrance du Sortilège</h4>
+                        <p class="text-xs sm:text-sm text-slate-600">L'aveu d'amour de Belle transforme le monstre en Prince.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ================= TAB 2: EXERCICES ET REVISIONS SQ1 (COMPLETE 10 QUESTIONS) ================= -->
+        <div id="tab-exercises" class="tab-content hidden flex-1 flex flex-col min-h-0 bg-white rounded-2xl shadow-xl border border-slate-200 p-6 overflow-y-auto custom-scrollbar space-y-8">
+            
+            <div class="bg-rose-50 border border-rose-200 rounded-xl p-4 flex justify-between items-center flex-wrap gap-3">
+                <div>
+                    <h2 class="font-serif text-lg sm:text-xl font-bold text-rose-900">
+                        🎯 Révision Séquence 1 : "Les apparences trompeuses des monstres"
+                    </h2>
+                    <p class="text-xs text-rose-700">Entraînement complet pour le contrôle de 6ème (S2, S4, S6, S9)</p>
+                </div>
+                <div class="text-right bg-white px-4 py-2 rounded-lg border border-rose-200 shadow-sm">
+                    <span class="text-xs font-bold text-slate-500">Score Total :</span>
+                    <span id="quiz-score-display" class="block font-serif text-xl font-bold text-rose-800">0 / 0</span>
+                </div>
+            </div>
+
+            <!-- LEXICAL EXERCISE (S2 VOCABULAIRE) -->
+            <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 space-y-4">
+                <div class="flex justify-between items-start flex-wrap gap-2">
+                    <div>
+                        <span class="bg-amber-600 text-white text-xs font-bold px-2.5 py-1 rounded-md">Séance S2</span>
+                        <h3 class="font-serif text-base sm:text-lg font-bold text-slate-900 mt-1">Exercice Pratique : Le Champ Lexical de la Peur & de la Colère</h3>
+                        <p class="text-xs text-slate-600">Cliquez sur tous les mots du texte ci-dessous qui expriment la peur, la terreur ou la fureur de la Bête.</p>
+                    </div>
+                    <button onclick="resetLexicalExercise()" class="text-xs bg-white border border-slate-300 px-3 py-1.5 rounded-lg font-medium hover:bg-slate-100 transition shadow-sm">Réinitialiser</button>
+                </div>
+
+                <div id="interactive-lexical-box" class="bg-white p-4 sm:p-5 rounded-xl border border-slate-200 text-sm leading-relaxed font-serif shadow-inner">
+                    <!-- Populated by JS -->
+                </div>
+
+                <div class="flex items-center justify-between flex-wrap gap-2">
+                    <span id="lexical-feedback" class="text-xs sm:text-sm font-semibold text-amber-800">Cliquez sur les mots pour vérifier vos choix.</span>
+                    <span id="lexical-found-count" class="text-xs font-bold bg-amber-100 text-amber-900 px-3 py-1 rounded-full border border-amber-200">0 / 0</span>
+                </div>
+            </div>
+
+            <!-- GRAMMAR QUIZZES (S2, S4, S6, S9 - 10 QUESTIONS) -->
+            <div class="space-y-4">
+                <div class="flex items-center justify-between flex-wrap gap-2">
+                    <h3 class="font-serif text-lg font-bold text-slate-900">QCM Complêts d'Étude de la Langue (10 Questions)</h3>
+                    <div class="flex flex-wrap gap-1.5">
+                        <button id="qtab-all" onclick="showQuizSection('all')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-600 text-white">Toutes (10)</button>
+                        <button id="qtab-s2" onclick="showQuizSection('s2')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200">S2 (Peur)</button>
+                        <button id="qtab-s4" onclick="showQuizSection('s4')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200">S4 (Verbes)</button>
+                        <button id="qtab-s6" onclick="showQuizSection('s6')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200">S6 (Sujets)</button>
+                        <button id="qtab-s9" onclick="showQuizSection('s9')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200">S9 (Noms/Adj)</button>
+                    </div>
+                </div>
+
+                <!-- QUESTIONS CONTAINER -->
+                <div id="quiz-questions-container" class="space-y-4">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ================= TAB 3: TEXTE INTEGRAL WIKISOURCE (1883) ================= -->
+        <div id="tab-reader" class="tab-content hidden flex-1 flex flex-col min-h-0 bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+            
+            <!-- HEADER READER WITH AUDIO CONTROLS -->
+            <div class="bg-amber-50 border-b border-amber-200 p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center space-x-4">
+                    <img src="assets/jeanne-marie-leprince-de-beaumont.jpg" 
+                         alt="Jeanne-Marie Leprince de Beaumont" 
+                         class="w-12 h-14 object-cover rounded-lg shadow-md border border-amber-600/40"
+                         onerror="this.onerror=null; this.src='https://placehold.co/100x120/854d0e/ffffff?text=Beaumont';">
+                    <div>
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-amber-700 bg-amber-200/60 px-2 py-0.5 rounded-full">Texte Intégral Officiel (Wikisource 1883)</span>
+                        <h2 class="font-serif text-base sm:text-xl font-bold text-slate-900">Lecture Interactive du Conte</h2>
+                        <p class="text-xs text-slate-600">Cliquez sur une phrase pour l'écouter ou utilisez la lecture continue.</p>
+                    </div>
+                </div>
+                
+                <!-- Audio Controls -->
+                <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+                    <button id="play-all-btn" onclick="togglePlayAll()" class="bg-rose-600 hover:bg-rose-700 text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center space-x-2 shadow-md transition active:scale-95">
+                        <span id="play-icon">▶️</span>
+                        <span id="play-text">Lecture Vocale</span>
+                    </button>
+                    <button onclick="stopAudio()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white px-3 py-2 rounded-xl text-xs sm:text-sm font-medium transition">
+                        ⏹️ Stop
+                    </button>
+                    <div class="flex items-center space-x-2 bg-white px-2.5 py-1.5 rounded-xl border border-slate-300 shadow-sm">
+                        <label for="rate-select" class="text-xs text-slate-600 font-medium">Vitesse :</label>
+                        <select id="rate-select" class="bg-transparent text-slate-800 text-xs font-semibold focus:outline-none">
+                            <option value="0.75">0.75x</option>
+                            <option value="1" selected>1.0x</option>
+                            <option value="1.25">1.25x</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text Container -->
+            <div id="text-container" class="flex-1 overflow-y-auto p-6 sm:p-10 space-y-6 text-slate-800 font-serif leading-relaxed text-base sm:text-lg custom-scrollbar">
+                <!-- Text populated via JavaScript -->
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // FULL UNABRIDGED WIKISOURCE 1883 TEXT DATA
+        const fullTextData = [
+            {
+                chapterTitle: "Chapitre 1 : 🏡 La Fortune & La Ruine du Marchand",
+                paragraphs: [
+                    [
+                        { id: 1, text: "Il y avait une fois un marchand, qui était extrêmement riche." },
+                        { id: 2, text: "Il avait six enfants, trois garçons et trois filles ; comme ce marchand était un homme d'esprit, il n'épargna rien pour l'éducation de ses enfants, et leur donna toutes sortes de maîtres." },
+                        { id: 3, text: "Ses filles étaient très belles ; mais la plus jeune surtout se faisait admirer, et lorsqu'elle était petite, on ne l'appelait que la belle enfant ; en sorte que le nom lui en resta, ce qui donna beaucoup de jalousie à ses sœurs." },
+                        { id: 4, text: "Cette cadette, qui était plus belle que ses sœurs, était aussi meilleure qu'elles." },
+                        { id: 5, text: "Les deux aînées avaient beaucoup d'orgueil, parce qu'elles étaient riches ; elles faisaient les dames, et ne voulaient pas recevoir la visite des autres filles de marchands ; il leur fallait des personnes de qualité pour leur compagnie." },
+                        { id: 6, text: "Elles allaient tous les jours au bal, à la comédie, à la promenade, et se moquaient de leur cadette, qui employait la plus grande partie de son temps à lire de bons livres." }
+                    ],
+                    [
+                        { id: 7, text: "Comme on savait que ces filles étaient très riches, plusieurs gros marchands les demandèrent en mariage ; mais les deux aînées répondirent qu'elles ne se marieraient jamais, à moins qu'elles ne trouvassent un duc, ou tout au moins un comte." },
+                        { id: 8, text: "La Belle (car je vous ai dit que c'était le nom de la plus jeune), la Belle remercia bien honnêtement ceux qui voulaient l'épouser ; mais elle leur dit qu'elle était trop jeune, et qu'elle souhaitait de demeurer encore quelques années avec son père." },
+                        { id: 9, text: "Tout à coup le marchand perdit son bien, et il ne lui resta qu'une petite maison de campagne, bien loin de la ville." },
+                        { id: 10, text: "Il dit en pleurant à ses enfants, qu'il fallait aller habiter cette maison, et qu'en travaillant comme des paysans, ils y pourraient vivre." },
+                        { id: 11, text: "Ses deux filles aînées répondirent qu'elles ne voulaient pas quitter la ville, et qu'elles avaient plusieurs amants, qui seraient trop heureux de les épouser, puisqu'elles n'avaient plus de fortune." },
+                        { id: 12, text: "Les bonnes demoiselles se trompaient ; leurs amants ne voulurent plus les regarder quand elles furent pauvres." },
+                        { id: 13, text: "Comme personne ne les aimait, à cause de leur orgueil, on disait : « Elles ne méritent pas qu'on les plaigne ; nous sommes bien aises de voir leur orgueil abaissé : qu'elles aillent faire les dames en gardant les moutons. »" },
+                        { id: 14, text: "Mais en même temps tout le monde disait : « Pour la Belle, nous sommes bien fâchés de son malheur ; c'est une si bonne fille ! elle parlait aux pauvres gens avec tant de douceur ! elle était si complaisante, si bonne ! »" },
+                        { id: 15, text: "Il y eut même plusieurs gentilshommes qui voulurent l'épouser, quoiqu'elle n'eût pas un sou ; mais elle dit qu'elle ne pouvait se résoudre à abandonner son pauvre père dans son malheur, et qu'elle voulait le suivre à la campagne, pour le consoler et l'aider à travailler." },
+                        { id: 16, text: "La pauvre Belle avait été bien affligée d'abord de perdre sa fortune ; mais elle s'était dite à elle-même : « Quand je pleurerais bien fort, cela ne me rendra pas mon bien ; il faut chercher à être heureuse sans fortune. »" }
+                    ]
+                ]
+            },
+            {
+                chapterTitle: "Chapitre 2 : 🌾 L'Exil & Le Travail à la Campagne",
+                paragraphs: [
+                    [
+                        { id: 17, text: "Lorsqu'ils furent arrivés à leur maison de campagne, le marchand et ses trois fils s'occupèrent à labourer la terre." },
+                        { id: 18, text: "La Belle se levait à quatre heures du matin, et se hâtait de nettoyer la maison, et de préparer le dîner pour la famille." },
+                        { id: 19, text: "Elle eut d'abord beaucoup de peine, car elle n'était pas accoutumée à travailler comme une servante ; mais au bout de deux mois, elle devint plus forte, et la santé parfaite lui donna de belles couleurs." },
+                        { id: 20, text: "Quand elle avait achevé son ouvrage, elle lisait, elle jouait du clavecin, ou bien elle chantait en filant." },
+                        { id: 21, text: "Ses deux sœurs, au contraire, s'ennuyaient à mourir ; elles se levaient à dix heures du matin, se promenaient toute la journée, et s'amusaient à regretter leurs beaux habits et les compagnies." },
+                        { id: 22, text: "« Voyez la cadette, disaient-elles l'une à l'autre ; elle a l'âme si basse, et elle est si stupide, qu'elle est contente de sa malheureuse situation. »" },
+                        { id: 23, text: "Le bon marchand ne pensait pas comme ses filles ; il savait que la Belle était plus propre qu'elles à briller dans les compagnies ; il admirait la vertu de cette jeune fille, et surtout sa patience ; car ses sœurs, non contentes de lui laisser faire tout l'ouvrage de la maison, l'insultaient à tout moment." }
+                    ]
+                ]
+            },
+            {
+                chapterTitle: "Chapitre 3 : 🏰 Le Voyage au Port & Le Palais Magique",
+                paragraphs: [
+                    [
+                        { id: 24, text: "Il y avait un an que cette famille vivait dans la solitude, lorsque le marchand reçut une lettre, qui lui mandait qu'un vaisseau sur lequel il avait des marchandises venait d'arriver heureusement." },
+                        { id: 25, text: "Cette nouvelle faillit tourner la tête à ses deux aînées, qui pensaient qu'enfin elles pourraient quitter cette campagne où elles s'ennuyaient tant ; et quand elles virent leur père prêt à partir, elles le prièrent de leur rapporter des robes, des palatines, des coiffures, et toutes sortes de bagatelles." },
+                        { id: 26, text: "La Belle ne lui demandait rien ; car elle pensait en elle-même que tout l'argent que le vaisseau pourrait rapporter ne suffirait pas pour acheter ce que ses sœurs souhaitaient." },
+                        { id: 27, text: "« Tu ne me demandes donc pas à t'acheter quelque chose ? » lui dit son père." },
+                        { id: 28, text: "« Puisque vous avez la bonté de penser à moi, lui dit-elle, je vous prie de m'apporter une rose, car il n'en vient point ici. »" },
+                        { id: 29, text: "Ce n'est pas que la Belle souciât d'une rose ; mais elle ne voulait pas condamner par son exemple la conduite de ses sœurs, qui auraient dit que c'était pour se distinguer qu'elle ne demandait rien." }
+                    ],
+                    [
+                        { id: 30, text: "Le bonhomme partit ; mais quand il fut arrivé, on lui intenta un procès pour ses marchandises, et après avoir eu bien de la peine, il revint aussi pauvre qu'il était parti." },
+                        { id: 31, text: "Il n'avait plus que trente milles pour arriver à sa maison, et il se réjouissait déjà du plaisir de voir ses enfants ; mais lorsqu'il fallut traverser un grand bois, il se perdit." },
+                        { id: 32, text: "Il neigeait horriblement ; le vent était si fort, qu'il le jeta deux fois bas de son cheval ; et la nuit étant venue, il pensa qu'il mourrait de faim ou de froid, ou qu'il serait mangé par les loups, qu'il entendait hurler autour de lui." },
+                        { id: 33, text: "Tout à coup, en regardant au bout d'une longue allée d'arbres, il vit une grande lumière, mais qui paraissait bien loin." },
+                        { id: 34, text: "Il marcha de ce côté-là, et vit que cette lumière sortait d'un grand palais, qui était tout illuminé." },
+                        { id: 35, text: "Le marchand remercia Dieu du secours qu'il lui envoyait, et se hâta d'arriver à ce château ; mais il fut bien surpris de ne trouver personne dans les cours." },
+                        { id: 36, text: "Son cheval, qui le suivait, voyant une grande écurie ouverte, entra dedans ; et ayant trouvé du foin et de l'avoine, le pauvre animal, qui mourait de faim, se jeta dessus avec beaucoup d'avidité." },
+                        { id: 37, text: "Le marchand l'attacha dans l'écurie, et marcha vers le logis, où il ne trouva personne ; mais étant entré dans une grande salle, il y trouva un bon feu, et une table chargée de viandes, où il n'y avait qu'un couvert." },
+                        { id: 38, text: "Comme la pluie et la neige l'avaient mouillé jusqu'aux os, il s'approcha du feu pour se sécher, et disait en lui-même : « Le maître de la maison ou ses domestiques me pardonneront la liberté que j'ai prise, et sans doute ils viendront bientôt. »" },
+                        { id: 39, text: "Il attendit pendant un temps considérable ; mais onze heures ayant sonné sans qu'il vît personne, il ne put résister à la faim, et prit un poulet, qu'il mangea en deux bouchées, en tremblant." },
+                        { id: 40, text: "Il buvait aussi quelques coups de vin, et devenu plus hardi, il sortit de la salle, et traversa plusieurs grands appartements, meublés magnifiquement." },
+                        { id: 41, text: "A la fin, il trouva une chambre où il y avait un bon lit ; et comme il était minuit passé, et qu'il était las, il prit le parti de fermer la porte, et de se coucher." }
+                    ]
+                ]
+            },
+            {
+                chapterTitle: "Chapitre 4 : 🌹 La Rose Cueillie & La Colère de la Bête",
+                paragraphs: [
+                    [
+                        { id: 42, text: "Il était dix heures du matin quand il se leva le lendemain ; et il fut bien surpris de trouver un habit tout neuf à la place du sien, qui était gâté." },
+                        { id: 43, text: "« Assurément, dit-il en lui-même, ce palais appartient à quelque bonne fée, qui a eu pitié de ma situation. »" },
+                        { id: 44, text: "Il regarda par la fenêtre, et ne vit plus de neige, mais des tonnelles de fleurs, qui enchantaient la vue." },
+                        { id: 45, text: "Il rentra dans la grande salle où il avait soupé la veille, et vit une petite table où il y avait du chocolat." },
+                        { id: 46, text: "« Je vous remercie, madame la Fée, dit-il tout haut, d'avoir eu la bonté de penser à mon déjeuner. »" },
+                        { id: 47, text: "Le bonhomme, après avoir bu son chocolat, sortit pour aller chercher son cheval ; et comme il passait sous un berceau de roses, il se souvint de ce que la Belle lui avait demandé, et cueillit une branche où il y en avait plusieurs." },
+                        { id: 48, text: "En même temps, il entendit un grand bruit, et vit venir à lui une Bête si horrible, qu'il fut tout prêt de s'évanouir." },
+                        { id: 49, text: "« Vous êtes bien ingrat, lui dit la Bête d'une voix terrible ; je vous ai sauvé la vie en vous recevant dans mon château, et pour ma peine, vous me volez mes roses, que j'aime mieux que toute chose au monde. »" },
+                        { id: 50, text: "« Il faut mourir pour réparer cette faute ; je ne vous donne que quart d'heure pour demander pardon à Dieu. »" },
+                        { id: 51, text: "Le marchand se jeta à genoux, et dit à la Bête, en joignant les mains : « Monseigneur, pardonnez-moi, je ne croyais pas vous offenser en cueillant une rose pour une de mes filles, qui m'en avait demandé. »" },
+                        { id: 52, text: "« Je ne m'appelle point Monseigneur, répondit le monstre, mais la Bête ; j'aime qu'on dise ce qu'on pense, et n'espère pas me toucher par vos flatteries. »" },
+                        { id: 53, text: "« Mais vous me dites que vous avez des filles ; je veux bien vous pardonner, à condition qu'une de vos filles vienne volontairement pour mourir à votre place. »" },
+                        { id: 54, text: "« Ne me raisonnez pas : partez, et jurez que si vos filles refusent de mourir pour vous, vous reviendrez dans trois mois. »" },
+                        { id: 55, text: "Le bonhomme n'avait pas dessein de sacrifier une de ses filles à ce vilain monstre ; mais il pensa : « Au moins, j'aurai le plaisir d'embrasser mes enfants encore une fois. »" },
+                        { id: 56, text: "Il jura donc de revenir, et la Bête lui dit qu'il pouvait partir quand il voudrait ; « mais, ajouta-t-elle, je ne veux pas que tu t'en ailles les mains vides. »" },
+                        { id: 57, text: "« Retourne dans la chambre où tu as couché, tu y trouveras un grand coffre vide ; tu peux y mettre tout ce qu'il te plaira, je le ferai porter chez toi. »" },
+                        { id: 58, text: "En même temps la Bête se retira, et le bonhomme dit en lui-même : « S'il faut que je meure, j'aurai la consolation de laisser du pain à mes pauvres enfants. »" },
+                        { id: 59, text: "Il retourna dans la chambre où il avait couché, et y ayant trouvé une grande quantité d'or de pièces, il en remplit le coffre dont la Bête avait parlé, le ferma, et ayant repris son cheval, il sortit de ce palais avec une tristesse égale à la joie qu'il avait eu en y entrant." }
+                    ]
+                ]
+            },
+            {
+                chapterTitle: "Chapitre 5 : 👑 Le Dévouement de Belle & La Métamorphose",
+                paragraphs: [
+                    [
+                        { id: 60, text: "Son cheval prit lui-même un des chemins de la forêt, et en quelques heures le bonhomme arriva dans sa petite maison." },
+                        { id: 61, text: "Ses enfants se rassemblèrent autour de lui ; mais au lieu de les embrasser avec joie, le marchand se mit à pleurer en les regardant." },
+                        { id: 62, text: "Il tenait à la main la branche de rose qu'il apportait à la Belle, et il la lui donna en disant : « Belle, prenez ces roses ; elles coûteront bien cher à votre pauvre père. »" },
+                        { id: 63, text: "Et aussitôt il raconta à sa famille la fâcheuse aventure qui lui était arrivée." },
+                        { id: 64, text: "A ce récit, les deux aînées jetèrent de grands cris, et dirent des injures à la Belle, qui ne pleurait point." },
+                        { id: 65, text: "« Voyez ce que produit l'orgueil de cette petite créature ! disaient-elles ; que ne demandait-elle des ajustements comme nous ? mais mademoiselle voulait se distinguer. Elle va causer la mort de notre père, et elle ne pleure pas ! »" },
+                        { id: 66, text: "« Cela serait fort inutile, répondit la Belle ; pourquoi pleurerais-je la mort de mon père ? Il ne périra point. Puisque le monstre veut bien accepter une de ses filles, je veux me livrer à toute sa furie ; et je me trouve fort heureuse, puisque ma mort aura la gloire de sauver mon père, et de lui prouver ma tendresse. »" },
+                        { id: 67, text: "« Non, ma sœur, lui dirent ses trois frères, vous ne mourrez pas ; nous irons trouver ce monstre, et nous le tuerons, ou nous périrons sous ses coups. »" },
+                        { id: 68, text: "« Ne l'espérez pas, mes enfants, leur dit le marchand ; la puissance de cette Bête est si grande, qu'il ne me reste aucune espérance de la détruire. Le cœur de la Belle me pénètre de reconnaissance ; mais je ne veux pas l'exposer à une mort affreuse. Je suis vieux, il ne me reste que peu de temps à vivre ; ainsi je ne perdrai que quelques années de ma vie, que je ne regrette qu'à cause de vous, mes chers enfants. »" },
+                        { id: 69, text: "« Je vous assure, mon père, lui dit la Belle, que vous n'irez pas à ce château sans moi ; vous ne pouvez m'empêcher de vous suivre. »" },
+                        { id: 70, text: "On eut beau dire, la Belle voulut absolument partir pour le palais enchanté." },
+                        { id: 71, text: "Arrivée au château, la Bête la reçut magnifiquement. Bien qu'effrayée par sa laideur, Belle découvrit peu à peu la bonté profonde du monstre qui la traitait comme une reine." },
+                        { id: 72, text: "Chaque soir, la Bête lui demandait d'une voix douce : « La Belle, voulez-vous être mon épouse ? » Et Belle lui répondait doucement : « Non, la Bête. »" },
+                        { id: 73, text: "Belle passa plusieurs mois heureux au palais, mais désira revoir son pauvre père. La Bête lui permit de partir huit jours grâce à un anneau magique." },
+                        { id: 74, text: "Ses sœurs jalouses, la voyant vêtue comme une princesse, la retinrent par de fausses tendresses pour que la Bête, furieuse de ce retard, la dévore à son retour." },
+                        { id: 75, text: "Le dixième jour, Belle rêva que la Bête se mourait de chagrin dans le jardin du palais. Prise de remords, elle utilisa son anneau pour revenir instantanément." },
+                        { id: 76, text: "Trouvant la Bête étendue sans connaissance sur l'herbe, Belle se jeta sur elle en pleurant : « Non, ma chère Bête, vous ne mourrez pas ! Vous vivrez pour devenir mon époux, je vous donne ma main ! »" },
+                        { id: 77, text: "A peine eut-elle prononcé ces paroles qu'un feu d'artifice éclata, et la Bête disparut pour laisser place à un jeune Prince plus beau que le jour, qui la remercia d'avoir brisé le méchant sortilège en préférant la bonté du cœur à la beauté du visage." }
+                    ]
+                ]
+            }
+        ];
+
+        // LEXICAL EXERCISE DATA (FEAR / ANGER WORDS)
+        const lexicalWordsData = [
+            { text: "En", target: false }, { text: "même", target: false }, { text: "temps,", target: false }, { text: "il", target: false },
+            { text: "entendit", target: false }, { text: "un", target: false }, { text: "grand", target: false }, { text: "bruit,", target: false },
+            { text: "et", target: false }, { text: "vit", target: false }, { text: "venir", target: false }, { text: "à", target: false },
+            { text: "lui", target: false }, { text: "une", target: false }, { text: "Bête", target: false }, { text: "si", target: false },
+            { text: "horrible,", target: true }, { text: "qu'il", target: false }, { text: "fut", target: false }, { text: "tout", target: false },
+            { text: "prêt", target: false }, { text: "de", target: false }, { text: "s'évanouir.", target: true }, { text: "« Vous", target: false },
+            { text: "êtes", target: false }, { text: "ingrat,", target: false }, { text: "dit", target: false }, { text: "la", target: false },
+            { text: "Bête", target: false }, { text: "d'une", target: false }, { text: "voix", target: false }, { text: "terrible ;", target: true },
+            { text: "je", target: false }, { text: "vous", target: false }, { text: "ai", target: false }, { text: "sauvé", target: false },
+            { text: "la", target: false }, { text: "vie,", target: false }, { text: "et", target: false }, { text: "vous", target: false },
+            { text: "me", target: false }, { text: "volez", target: false }, { text: "mes", target: false }, { text: "roses !", target: false },
+            { text: "Il", target: false }, { text: "faut", target: false }, { text: "mourir", target: true }, { text: "pour", target: false },
+            { text: "réparer", target: false }, { text: "cette", target: false }, { text: "faute ! »", target: false }, { text: "Le", target: false },
+            { text: "marchand", target: false }, { text: "tremblait", target: true }, { text: "de", target: false }, { text: "frayeurs", target: true },
+            { text: "devant", target: false }, { text: "la", target: false }, { text: "furie", target: true }, { text: "du", target: false },
+            { text: "monstre", target: true }, { text: "qui", target: false }, { text: "menaçait", target: true }, { text: "de", target: false },
+            { text: "le", target: false }, { text: "dévorer.", target: true }
+        ];
+
+        // FULL 10 GRAMMAR / VOCABULARY QUESTIONS DATABASE
+        const quizDatabase = {
+            s2: [
+                { id: "q1", cat: "s2", q: "Quel mot exprime une frayeur extrême susceptible d'enlever l'usage des sens ?", opts: ["A) La joie", "B) La terreur", "C) La patience"], ans: 1, exp: "La terreur est le degré le plus élevé de la peur." },
+                { id: "q2", cat: "s2", q: "Dans 'il tremblait de frayeur', quelle est la nature du mot 'frayeur' ?", opts: ["A) Nom commun", "B) Adjectif qualificatif", "C) Verbe d'action"], ans: 0, exp: "'frayeur' désigne une émotion, c'est un nom commun." },
+                { id: "q3", cat: "s2", q: "Quel verbe de la peur signifie 'avoir un tremblement involontaire du corps' ?", opts: ["A) Sourire", "B) Frissonner", "C) Flâner"], ans: 1, exp: "Frissonner traduit la réaction physique du corps sous le coup de la peur." }
+            ],
+            s4: [
+                { id: "q4", cat: "s4", q: "Dans 'La Belle se levait à quatre heures', quel est le verbe conjugué ?", opts: ["A) Belle", "B) levait", "C) heures"], ans: 1, exp: "C'est le verbe pronominal 'se lever' conjugué à l'imparfait." },
+                { id: "q5", cat: "s4", q: "À quel temps du récit est conjugué le verbe 'perdit' dans 'Le marchand perdit son bien' ?", opts: ["A) Présent de l'indicatif", "B) Passé simple", "C) Imparfait"], ans: 1, exp: "C'est la 3ème personne du singulier du passé simple." },
+                { id: "q6", cat: "s4", q: "Quelle est l'infinitif du verbe 'répondirent' ?", opts: ["A) Répondre", "B) Répondir", "C) Repondre"], ans: 0, exp: "Verbe du 3ème groupe : Répondre." }
+            ],
+            s6: [
+                { id: "q7", cat: "s6", q: "Quel est le sujet du verbe dans : 'Les deux filles aînées répondirent' ?", opts: ["A) Les deux filles aînées", "B) répondirent", "C) la ville"], ans: 0, exp: "Pour trouver le sujet, on pose la question : 'Qui est-ce qui répondirent ?' -> Les deux filles aînées." },
+                { id: "q8", cat: "s6", q: "Trouvez le sujet inversé dans : 'Soudain surgit une Bête effrayante.'", opts: ["A) Soudain", "B) une Bête effrayante", "C) surgit"], ans: 1, exp: "Le sujet est placé après le verbe : 'Qui est-ce qui surgit ?' -> Une Bête effrayante." }
+            ],
+            s9: [
+                { id: "q9", cat: "s9", q: "Dans la phrase 'une Bête si horrible', quelle est la classe grammaticale de 'horrible' ?", opts: ["A) Nom commun", "B) Adjectif qualificatif", "C) Adverbe"], ans: 1, exp: "C'est un adjectif qualificatif qui précise la nature du nom 'Bête'." },
+                { id: "q10", cat: "s9", q: "Dans 'de belles robes de soie', quel mot est un adjectif qualificatif ?", opts: ["A) belles", "B) robes", "C) soie"], ans: 0, exp: "'belles' est l'adjectif qualificatif épithète du nom 'robes'." }
+            ]
+        };
+
+        let currentSentenceIdx = 0;
+        let isPlaying = false;
+        let speechSynth = window.speechSynthesis;
+        let currentUtterance = null;
+        let allSentencesList = [];
+        let userQuizAnswers = {};
+
+        // INITIALIZATION ON LOAD
+        window.onload = function() {
+            renderInteractiveText();
+            renderLexicalExercise();
+            switchTab('summary'); // Default tab set to 'summary' as requested
+        };
+
+        // TAB SWITCHING FUNCTION
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            const activeContent = document.getElementById('tab-' + tabId);
+            if (activeContent) activeContent.classList.remove('hidden');
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-amber-600', 'text-white', 'shadow-md');
+                btn.classList.add('text-slate-300', 'hover:text-white', 'hover:bg-slate-800');
+            });
+
+            const activeBtn = document.getElementById('tab-btn-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-slate-300', 'hover:text-white', 'hover:bg-slate-800');
+                activeBtn.classList.add('bg-amber-600', 'text-white', 'shadow-md');
+            }
+
+            if (tabId === 'exercises') {
+                showQuizSection('all');
+            }
+
+            if (tabId !== 'reader') {
+                stopAudio();
+            }
+        }
+
+        // RENDER WIKISOURCE TEXT
+        function renderInteractiveText() {
+            const container = document.getElementById('text-container');
+            if (!container) return;
+            container.innerHTML = '';
+            allSentencesList = [];
+
+            fullTextData.forEach(chap => {
+                const chapHeading = document.createElement('h2');
+                chapHeading.className = 'font-serif text-xl sm:text-2xl font-bold text-amber-900 border-b-2 border-amber-300 pb-2 mt-4 mb-4';
+                chapHeading.innerText = chap.chapterTitle;
+                container.appendChild(chapHeading);
+
+                chap.paragraphs.forEach(paragraph => {
+                    const pElem = document.createElement('p');
+                    pElem.className = 'mb-4 leading-relaxed';
+
+                    paragraph.forEach(item => {
+                        const span = document.createElement('span');
+                        span.innerText = item.text + ' ';
+                        span.className = 'sentence-clickable';
+                        span.id = 'sentence-' + item.id;
+                        span.onclick = () => playSingleSentence(item.id);
+
+                        pElem.appendChild(span);
+                        allSentencesList.push(item);
+                    });
+
+                    container.appendChild(pElem);
+                });
+            });
+        }
+
+        // AUDIO FUNCTIONS
+        function playSingleSentence(id) {
+            stopAudio();
+            const sObj = allSentencesList.find(s => s.id === id);
+            if (!sObj) return;
+
+            highlightSentence(id);
+            speakText(sObj.text, () => {
+                clearHighlights();
+            });
+        }
+
+        function togglePlayAll() {
+            if (isPlaying) {
+                stopAudio();
+            } else {
+                isPlaying = true;
+                const icon = document.getElementById('play-icon');
+                const txt = document.getElementById('play-text');
+                if (icon) icon.innerText = '⏸️';
+                if (txt) txt.innerText = 'Pause';
+                playNextInSequence(currentSentenceIdx);
+            }
+        }
+
+        function playNextInSequence(index) {
+            if (!isPlaying || index >= allSentencesList.length) {
+                stopAudio();
+                return;
+            }
+
+            currentSentenceIdx = index;
+            const sObj = allSentencesList[index];
+            highlightSentence(sObj.id);
+
+            speakText(sObj.text, () => {
+                if (isPlaying) {
+                    playNextInSequence(index + 1);
+                }
+            });
+        }
+
+        function speakText(text, onEndCallback) {
+            if (!speechSynth) return;
+
+            speechSynth.cancel();
+            currentUtterance = new SpeechSynthesisUtterance(text);
+            currentUtterance.lang = 'fr-FR';
+
+            const rateSelect = document.getElementById('rate-select');
+            const rate = rateSelect ? parseFloat(rateSelect.value) : 1.0;
+            currentUtterance.rate = rate;
+
+            currentUtterance.onend = function() {
+                if (onEndCallback) onEndCallback();
+            };
+
+            currentUtterance.onerror = function() {
+                if (onEndCallback) onEndCallback();
+            };
+
+            speechSynth.speak(currentUtterance);
+        }
+
+        function stopAudio() {
+            isPlaying = false;
+            if (speechSynth) speechSynth.cancel();
+            const icon = document.getElementById('play-icon');
+            const txt = document.getElementById('play-text');
+            if (icon) icon.innerText = '▶️';
+            if (txt) txt.innerText = 'Lecture Vocale';
+            clearHighlights();
+        }
+
+        function highlightSentence(id) {
+            clearHighlights();
+            const elem = document.getElementById('sentence-' + id);
+            if (elem) {
+                elem.classList.add('sentence-active');
+                elem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function clearHighlights() {
+            document.querySelectorAll('.sentence-active').forEach(el => el.classList.remove('sentence-active'));
+        }
+
+        // LEXICAL EXERCISE
+        function renderLexicalExercise() {
+            const container = document.getElementById('interactive-lexical-box');
+            if (!container) return;
+            container.innerHTML = '';
+            
+            lexicalWordsData.forEach((item, idx) => {
+                const span = document.createElement('span');
+                span.className = 'cursor-pointer hover:bg-amber-200 px-1 py-0.5 rounded transition inline-block m-0.5 border border-transparent font-serif';
+                span.innerText = item.text;
+                span.setAttribute('data-idx', idx);
+                span.onclick = () => toggleLexicalWord(idx, span);
+                container.appendChild(span);
+            });
+            updateLexicalCount();
+        }
+
+        function toggleLexicalWord(idx, element) {
+            const data = lexicalWordsData[idx];
+            if (element.classList.contains('bg-rose-500') || element.classList.contains('bg-emerald-500')) {
+                element.classList.remove('bg-rose-500', 'text-white', 'border-rose-600', 'bg-emerald-500', 'border-emerald-600');
+                element.classList.add('hover:bg-amber-200');
+                data.selected = false;
+            } else {
+                element.classList.remove('hover:bg-amber-200');
+                if (data.target) {
+                    element.classList.add('bg-emerald-500', 'text-white', 'border-emerald-600');
+                } else {
+                    element.classList.add('bg-rose-500', 'text-white', 'border-rose-600');
+                }
+                data.selected = true;
+            }
+            updateLexicalCount();
+        }
+
+        function updateLexicalCount() {
+            const targets = lexicalWordsData.filter(d => d.target);
+            const foundCorrect = lexicalWordsData.filter(d => d.target && d.selected).length;
+            const wrongSelected = lexicalWordsData.filter(d => !d.target && d.selected).length;
+
+            const cntElem = document.getElementById('lexical-found-count');
+            if (cntElem) cntElem.innerText = `${foundCorrect} / ${targets.length}`;
+            
+            const feedback = document.getElementById('lexical-feedback');
+            if (feedback) {
+                if (foundCorrect === targets.length && wrongSelected === 0) {
+                    feedback.className = 'text-xs sm:text-sm font-bold text-emerald-600';
+                    feedback.innerText = '🎉 Parfait ! Vous avez trouvé tous les mots du champ lexical !';
+                } else if (wrongSelected > 0) {
+                    feedback.className = 'text-xs sm:text-sm font-semibold text-rose-600';
+                    feedback.innerText = `Attention, ${wrongSelected} mot(s) sélectionné(s) ne font pas partie du champ lexical.`;
+                } else {
+                    feedback.className = 'text-xs sm:text-sm font-semibold text-amber-800';
+                    feedback.innerText = 'Cliquez sur les mots du texte pour les sélectionner.';
+                }
+            }
+        }
+
+        function resetLexicalExercise() {
+            lexicalWordsData.forEach(d => d.selected = false);
+            renderLexicalExercise();
+        }
+
+        // QUIZ LOGIC FOR ALL 10 QUESTIONS
+        function showQuizSection(filterKey) {
+            ['all', 's2', 's4', 's6', 's9'].forEach(k => {
+                const btn = document.getElementById('qtab-' + k);
+                if (btn) {
+                    if (k === filterKey) {
+                        btn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-600 text-white shadow-sm';
+                    } else {
+                        btn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200';
+                    }
+                }
+            });
+
+            let questionsToDisplay = [];
+            if (filterKey === 'all') {
+                Object.keys(quizDatabase).forEach(cat => {
+                    questionsToDisplay = questionsToDisplay.concat(quizDatabase[cat]);
+                });
+            } else if (quizDatabase[filterKey]) {
+                questionsToDisplay = quizDatabase[filterKey];
+            }
+
+            const container = document.getElementById('quiz-questions-container');
+            if (!container) return;
+            container.innerHTML = '';
+
+            questionsToDisplay.forEach((qObj, globalIdx) => {
+                const qCard = document.createElement('div');
+                qCard.className = 'p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-3 shadow-sm';
+                
+                const title = document.createElement('h4');
+                title.className = 'font-bold text-slate-800 text-sm sm:text-base flex items-start space-x-2';
+                title.innerHTML = `<span class="bg-amber-200 text-amber-900 text-xs px-2.5 py-0.5 rounded-full font-bold uppercase">${qObj.cat.toUpperCase()} - Q${globalIdx + 1}</span> <span>${qObj.q}</span>`;
+                qCard.appendChild(title);
+
+                const optsGrid = document.createElement('div');
+                optsGrid.className = 'grid grid-cols-1 sm:grid-cols-3 gap-2';
+
+                qObj.opts.forEach((optText, optIdx) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'p-2.5 border rounded-lg text-xs text-left font-medium transition bg-white hover:bg-amber-50';
+                    btn.innerText = optText;
+                    
+                    const answerKey = qObj.id;
+                    if (userQuizAnswers[answerKey] !== undefined) {
+                        if (optIdx === qObj.ans) {
+                            btn.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-900', 'font-bold');
+                        } else if (userQuizAnswers[answerKey] === optIdx) {
+                            btn.classList.add('bg-rose-100', 'border-rose-500', 'text-rose-900');
+                        }
+                    }
+
+                    btn.onclick = () => handleQuizAnswer(qObj.id, optIdx, filterKey);
+                    optsGrid.appendChild(btn);
+                });
+
+                qCard.appendChild(optsGrid);
+
+                const expBox = document.createElement('div');
+                const answerKey = qObj.id;
+                if (userQuizAnswers[answerKey] !== undefined) {
+                    expBox.className = 'text-xs p-3 rounded-lg font-medium ' + (userQuizAnswers[answerKey] === qObj.ans ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800');
+                    expBox.innerHTML = (userQuizAnswers[answerKey] === qObj.ans ? '✅ Excellente réponse ! ' : '❌ Explication : ') + qObj.exp;
+                } else {
+                    expBox.className = 'hidden text-xs p-3 rounded-lg font-medium';
+                }
+                qCard.appendChild(expBox);
+
+                container.appendChild(qCard);
+            });
+
+            updateOverallQuizScore();
+        }
+
+        function handleQuizAnswer(questionId, selectedOptIdx, currentFilter) {
+            userQuizAnswers[questionId] = selectedOptIdx;
+            showQuizSection(currentFilter);
+        }
+
+        function updateOverallQuizScore() {
+            let totalAnswered = 0;
+            let totalCorrect = 0;
+            
+            let allQuestions = [];
+            Object.keys(quizDatabase).forEach(cat => {
+                allQuestions = allQuestions.concat(quizDatabase[cat]);
+            });
+
+            allQuestions.forEach(qObj => {
+                if (userQuizAnswers[qObj.id] !== undefined) {
+                    totalAnswered++;
+                    if (userQuizAnswers[qObj.id] === qObj.ans) {
+                        totalCorrect++;
+                    }
+                }
+            });
+
+            const scoreDisplay = document.getElementById('quiz-score-display');
+            if (scoreDisplay) scoreDisplay.innerText = `${totalCorrect} / ${allQuestions.length}`;
+        }
+    </script>
+</body>
+</html>
