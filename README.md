@@ -17,3 +17,5 @@ Source du portrait : [Wikimedia Commons — Jeanne-Marie Leprince de Beaumont](h
 ## Utilisation
 
 Ouvrir `index.html` dans un navigateur, ou publier le dépôt avec GitHub Pages.
+
+Le code est disponible dans le dépôt GitHub : https://github.com/cecilesauder/La_Belle_et_la_Bete. L’activation automatique de GitHub Pages n’a pas été autorisée par les droits de l’intégration ; elle pourra être activée dans **Settings → Pages**, avec `main` et le dossier `/ (root)`.
