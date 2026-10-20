@@ -2,16 +2,16 @@
 
 Outil interactif de révision pour l’étude du conte **La Belle et la Bête** de Jeanne-Marie Leprince de Beaumont.
 
-## Deux versions du conte
+## Deux versions complètes du conte
 
-Pour éviter toute confusion avec le document utilisé en classe, le lecteur propose désormais deux éditions clairement séparées :
+Le lecteur propose deux éditions complètes, clairement séparées :
 
-- **Wikisource 1883** : la version indiquée dans la consigne de recherche de Pronote ;
-- **PDF Pronote — Barba 1806** : la version du document PDF donné dans Pronote, avec notamment le dénouement où les deux sœurs deviennent des statues.
+- **Wikisource 1883** : *Le Monde enchanté*, Firmin-Didot, 1883, pages 389 à 406. [Lire la source Wikisource](https://fr.wikisource.org/wiki/Le_monde_enchant%C3%A9/La_Belle_et_la_B%C3%AAte) ;
+- **PDF Pronote — Barba 1806** : *Contes moraux pour l’instruction de la jeunesse*, Barba, 1806. [Voir la référence Wikisource de l’édition Barba](https://fr.wikisource.org/wiki/Contes_moraux_pour_l%E2%80%99instruction_de_la_jeunesse/La_Belle_et_la_B%C3%AAte).
 
 Dans l’onglet **Texte intégral**, les boutons **Wikisource 1883** et **PDF Pronote — Barba 1806** permettent de changer d’édition. L’étiquette et la description de la source active sont mises à jour automatiquement. La lecture audio fonctionne avec l’édition sélectionnée.
 
-Les deux éditions sont volontairement conservées séparément : les élèves peuvent ainsi réviser la version qu’ils ont effectivement lue sans mélanger les formulations ni les dénouements.
+Les deux textes sont conservés séparément afin de respecter les formulations, la ponctuation et les détails propres à chaque édition.
 
 ## Exercices ciblés sur la SQ1
 
@@ -27,7 +27,7 @@ L’onglet Révisions contient le champ lexical interactif et un QCM de 10 quest
 ## Fichiers
 
 - `index.html` : page web interactive ;
-- `assets/jeanne-marie-leprince-de-beaumont.jpg` : portrait local de l’écrivaine, utilisé pour éviter une dépendance à une URL externe devenue indisponible.
+- `assets/jeanne-marie-leprince-de-beaumont.jpg` : portrait local de l’écrivaine.
 
 Source du portrait : [Wikimedia Commons — Jeanne-Marie Leprince de Beaumont](https://commons.wikimedia.org/wiki/File:Jeanne-Marie_Leprince_de_Beaumont.jpg).
 
