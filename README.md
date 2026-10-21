@@ -26,7 +26,8 @@ L’onglet Révisions contient le champ lexical interactif et un QCM de 10 quest
 
 ## Fichiers
 
-- `index.html` : page web interactive ;
+- `index.html` : structure et contenu de la page web ;
+- `app.js` : logique des onglets, du lecteur, des exercices et du score ;
 - `assets/jeanne-marie-leprince-de-beaumont.jpg` : portrait local de l’écrivaine.
 
 Source du portrait : [Wikimedia Commons — Jeanne-Marie Leprince de Beaumont](https://commons.wikimedia.org/wiki/File:Jeanne-Marie_Leprince_de_Beaumont.jpg).
