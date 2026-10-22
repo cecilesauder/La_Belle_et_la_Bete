@@ -537,6 +537,7 @@ function renderPlatsGame() {
         column.className = 'rounded-2xl border-2 border-dashed border-slate-300 bg-white p-3 min-h-40 shadow-sm transition hover:border-amber-400 hover:bg-amber-50/40';
         column.ondragover = event => event.preventDefault();
         column.ondrop = event => { event.preventDefault(); assignPlatsCard(platsDraggedId, key); };
+        column.onclick = () => { if (platsDraggedId) assignPlatsCard(platsDraggedId, key); };
         column.innerHTML = `<div class="flex items-center justify-between border-b border-slate-100 pb-2 mb-2"><h4 class="font-bold text-slate-800">${category.icon} ${key} · ${category.label}</h4><span id="plats-count-${key}" class="text-xs font-bold text-slate-500">0 / 3</span></div><p class="text-[11px] text-slate-400 mb-2">Dépose les cartes ici</p><div id="plats-items-${key}" class="space-y-2"></div>`;
         columnsBox.appendChild(column);
     });
