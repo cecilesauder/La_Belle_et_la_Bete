@@ -67,7 +67,7 @@
                 </div>
                 
                 <!-- NAVIGATION TABS (NEW ORDER: SUMMARY -> EXERCISES -> READER) -->
-                <nav class="flex space-x-1 sm:space-x-2">
+                <nav class="flex space-x-1 sm:space-x-2 overflow-x-auto max-w-[68vw] sm:max-w-none scrollbar-hide">
                     <button onclick="switchTab('summary')" id="tab-btn-summary" class="tab-btn flex items-center space-x-1 sm:space-x-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all bg-amber-600 text-white shadow-md">
                         <span>💡</span>
                         <span class="hidden sm:inline">Résumé & Frise (5 parties)</span>
@@ -87,6 +87,11 @@
                         <span>🎨</span>
                         <span class="hidden sm:inline">BD</span>
                         <span class="sm:hidden">BD</span>
+                    </button>
+                    <button onclick="switchTab('plats')" id="tab-btn-plats" class="tab-btn flex items-center space-x-1 sm:space-x-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-slate-800">
+                        <span>🍽️</span>
+                        <span class="hidden sm:inline">PLATS</span>
+                        <span class="sm:hidden">PLATS</span>
                     </button>
                 </nav>
             </div>
@@ -364,6 +369,51 @@
                 <div class="rounded-2xl border border-fuchsia-200 bg-fuchsia-50 p-5 shadow-sm hover:-translate-y-1 transition"><div class="text-5xl">😭💧❤️💍✨👹➡️🤴🎉👭➡️🗿🗿</div><span class="text-xs font-bold uppercase tracking-wider text-fuchsia-700">6 · La transformation</span><h3 class="font-serif text-lg font-bold mt-1">Le sort est brisé</h3><p class="mt-2 text-sm leading-relaxed">Belle dit : « D’accord, je t’épouse ! » Boum ! La Bête redevient un prince, maudit par une fée. Les deux sœurs jalouses deviennent des statues jusqu’à ce qu’elles regrettent leurs fautes.</p></div>
                 <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-5 shadow-sm hover:-translate-y-1 transition md:col-span-2 xl:col-span-3"><div class="flex flex-col sm:flex-row sm:items-center gap-4"><div class="text-6xl">👭😒😡🪞🧚‍♀️⚖️🪄🗿🗿❤️💡</div><div><span class="text-xs font-bold uppercase tracking-wider text-emerald-700">7 · Bonus : qui est le vrai monstre ?</span><h3 class="font-serif text-lg font-bold mt-1">La leçon du conte</h3><p class="mt-2 text-sm leading-relaxed"><strong>La Bête</strong> est laide dehors, mais elle a bon cœur. Le mari de la première sœur est beau, mais il ne pense qu’à lui. Le mari de la deuxième sœur est vif, mais il est méchant avec tout le monde. La beauté ne dit rien sur le cœur : les vrais monstres ne sont pas toujours ceux qu’on croit.</p></div></div></div>
             </div>
+        </div>
+
+        <!-- ================= TAB 5: JEU PLATS ================= -->
+        <div id="tab-plats" class="tab-content hidden flex-1 flex flex-col min-h-0 bg-gradient-to-br from-amber-50 via-white to-rose-50 rounded-2xl shadow-xl border border-amber-100 p-4 sm:p-6 overflow-y-auto custom-scrollbar space-y-6">
+            <div class="rounded-2xl bg-gradient-to-r from-amber-600 via-orange-600 to-rose-600 text-white p-6 sm:p-8 shadow-lg relative overflow-hidden">
+                <div class="absolute -right-4 -bottom-10 text-9xl opacity-20">🍽️📖</div>
+                <div class="relative">
+                    <span class="inline-block rounded-full border border-white/30 bg-white/15 px-3 py-1 text-xs font-bold uppercase tracking-wider">Méthode PLATS</span>
+                    <h2 class="font-serif text-2xl sm:text-3xl font-bold mt-2">La recette de l’histoire</h2>
+                    <p class="mt-2 max-w-3xl text-sm sm:text-base text-orange-100">Classe les indices du conte dans la bonne famille. Quand tout est rangé, tu pourras reconstruire l’histoire du début à la fin.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-2">
+                <div class="rounded-xl border border-rose-200 bg-rose-50 p-3 text-center"><strong class="text-rose-800">P</strong><p class="text-xs text-rose-700">Personnages</p></div>
+                <div class="rounded-xl border border-sky-200 bg-sky-50 p-3 text-center"><strong class="text-sky-800">L</strong><p class="text-xs text-sky-700">Lieux</p></div>
+                <div class="rounded-xl border border-orange-200 bg-orange-50 p-3 text-center"><strong class="text-orange-800">A</strong><p class="text-xs text-orange-700">Actions</p></div>
+                <div class="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-center"><strong class="text-emerald-800">T</strong><p class="text-xs text-emerald-700">Temps</p></div>
+                <div class="rounded-xl border border-violet-200 bg-violet-50 p-3 text-center col-span-2 sm:col-span-1"><strong class="text-violet-800">S</strong><p class="text-xs text-violet-700">Situation / sentiments</p></div>
+            </div>
+
+            <div class="flex items-center justify-between gap-3 rounded-xl border border-amber-200 bg-white p-4 shadow-sm">
+                <div><h3 class="font-serif text-lg font-bold text-slate-900">À toi de classer les indices</h3><p id="plats-feedback" class="text-xs text-slate-600 mt-1">Pour chaque carte, choisis P, L, A, T ou S.</p></div>
+                <div class="text-right shrink-0"><span class="text-xs uppercase tracking-wider text-slate-500">Score</span><strong id="plats-score" class="block text-2xl font-bold text-amber-700">0 / 15</strong></div>
+            </div>
+
+            <div id="plats-cards" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3"></div>
+
+            <div>
+                <h3 class="font-serif text-xl font-bold text-slate-900 mb-3">🍲 Les ingrédients classés</h3>
+                <div id="plats-columns" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3"></div>
+            </div>
+
+            <div id="plats-reconstruction" class="hidden rounded-2xl border border-emerald-200 bg-emerald-50 p-5 shadow-sm">
+                <h3 class="font-serif text-xl font-bold text-emerald-900">🎉 La recette est prête : reconstruis l’histoire !</h3>
+                <p class="text-sm text-emerald-800 mt-1">Lis les cinq étapes dans l’ordre et retrouve la situation, les personnages, les lieux, les actions, le temps et les sentiments.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-3 mt-4">
+                    <div class="rounded-xl bg-white p-4 border border-emerald-100"><strong>1 · Départ</strong><p class="text-xs mt-2">Un marchand très riche perd sa fortune et part vivre à la campagne avec ses enfants.</p></div>
+                    <div class="rounded-xl bg-white p-4 border border-emerald-100"><strong>2 · La rose</strong><p class="text-xs mt-2">Dans un château, le père cueille une rose et rencontre la Bête en colère.</p></div>
+                    <div class="rounded-xl bg-white p-4 border border-emerald-100"><strong>3 · Le sacrifice</strong><p class="text-xs mt-2">Belle rejoint la Bête au château et découvre sa bonté derrière son apparence.</p></div>
+                    <div class="rounded-xl bg-white p-4 border border-emerald-100"><strong>4 · Le retour</strong><p class="text-xs mt-2">Les sœurs retiennent Belle. Elle comprend son erreur et revient auprès de la Bête.</p></div>
+                    <div class="rounded-xl bg-white p-4 border border-emerald-100"><strong>5 · La fin</strong><p class="text-xs mt-2">Belle épouse la Bête, qui devient un prince ; les deux sœurs sont changées en statues.</p></div>
+                </div>
+            </div>
+            <button onclick="resetPlatsGame()" class="self-start rounded-xl border border-amber-300 bg-white px-4 py-2 text-sm font-bold text-amber-800 hover:bg-amber-50">Recommencer le jeu</button>
         </div>
 
     </main>

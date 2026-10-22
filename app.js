@@ -139,6 +139,7 @@
         window.onload = function() {
             renderInteractiveText();
             renderLexicalExercise();
+            renderPlatsGame();
             switchTab('summary'); // Default tab set to 'summary' as requested
         };
 
@@ -482,3 +483,109 @@
             const scoreDisplay = document.getElementById('quiz-score-display');
             if (scoreDisplay) scoreDisplay.innerText = `${totalCorrect} / ${allQuestions.length}`;
         }
+
+
+// JEU PLATS : reconstruire l'histoire à partir de cinq catégories.
+const platsCategories = {
+    P: { label: 'Personnages', icon: '👥', color: 'rose' },
+    L: { label: 'Lieux', icon: '📍', color: 'sky' },
+    A: { label: 'Actions', icon: '⚡', color: 'orange' },
+    T: { label: 'Temps', icon: '⏳', color: 'emerald' },
+    S: { label: 'Situation / sentiments', icon: '💭', color: 'violet' }
+};
+
+const platsCards = [
+    { id: 'p1', category: 'P', icon: '👨‍👧‍👦', text: 'Le marchand et ses six enfants : Belle, ses sœurs et ses frères.' },
+    { id: 'p2', category: 'P', icon: '👹', text: 'La Bête paraît effrayante, mais elle est généreuse et bonne.' },
+    { id: 'p3', category: 'P', icon: '🧚‍♀️', text: 'La fée punit les deux sœurs jalouses à la fin.' },
+    { id: 'l1', category: 'L', icon: '🏡', text: 'La petite maison de campagne où la famille se réfugie.' },
+    { id: 'l2', category: 'L', icon: '🏰', text: 'Le palais enchanté avec son jardin de roses.' },
+    { id: 'l3', category: 'L', icon: '🌹', text: 'Le jardin et le canal près du palais.' },
+    { id: 'a1', category: 'A', icon: '💸', text: 'Le marchand perd toute sa fortune et part à la campagne.' },
+    { id: 'a2', category: 'A', icon: '🌹', text: 'Le père cueille une rose ; Belle se propose pour sauver son père.' },
+    { id: 'a3', category: 'A', icon: '✨', text: 'Belle avoue son amour : la Bête devient un prince.' },
+    { id: 't1', category: 'T', icon: '❄️🌙', text: 'Une nuit d’hiver, dans la neige et le froid, le père se perd.' },
+    { id: 't2', category: 'T', icon: '📅', text: 'Belle doit rester trois mois auprès de la Bête, puis obtient huit jours.' },
+    { id: 't3', category: 'T', icon: '🌙⏰', text: 'Le soir venu, Belle attend la Bête et comprend qu’elle est en danger.' },
+    { id: 's1', category: 'S', icon: '😟', text: 'Situation initiale : une famille riche vit heureuse avant la ruine.' },
+    { id: 's2', category: 'S', icon: '❤️', text: 'Belle agit par amour pour son père et découvre la bonté derrière l’apparence.' },
+    { id: 's3', category: 'S', icon: '🗿🗿', text: 'Situation finale : le prince épouse Belle ; les sœurs deviennent des statues.' }
+];
+let platsAssignments = {};
+
+function renderPlatsGame() {
+    const cardsBox = document.getElementById('plats-cards');
+    const columnsBox = document.getElementById('plats-columns');
+    if (!cardsBox || !columnsBox) return;
+    cardsBox.innerHTML = '';
+    columnsBox.innerHTML = '';
+
+    Object.entries(platsCategories).forEach(([key, category]) => {
+        const column = document.createElement('div');
+        column.id = 'plats-column-' + key;
+        column.className = 'rounded-2xl border border-slate-200 bg-white p-3 min-h-32 shadow-sm';
+        column.innerHTML = `<div class="flex items-center justify-between border-b border-slate-100 pb-2 mb-2"><h4 class="font-bold text-slate-800">${category.icon} ${key} · ${category.label}</h4><span id="plats-count-${key}" class="text-xs font-bold text-slate-500">0</span></div><div id="plats-items-${key}" class="space-y-2"></div>`;
+        columnsBox.appendChild(column);
+    });
+
+    platsCards.forEach(card => {
+        const assigned = platsAssignments[card.id];
+        const article = document.createElement('article');
+        article.className = 'rounded-2xl border p-4 shadow-sm transition ' + (assigned ? 'border-emerald-300 bg-emerald-50' : 'border-amber-200 bg-white hover:-translate-y-0.5');
+        const buttons = Object.keys(platsCategories).map(key => `<button type="button" onclick="assignPlatsCard('${card.id}', '${key}')" class="rounded-lg border px-2 py-1 text-xs font-bold transition ${assigned ? 'opacity-50 cursor-not-allowed' : 'hover:bg-amber-50'}" ${assigned ? 'disabled' : ''}>${key}</button>`).join('');
+        article.innerHTML = `<div class="flex items-start gap-3"><span class="text-3xl">${card.icon}</span><div><span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Indice ${platsCards.indexOf(card) + 1}</span><p class="text-sm leading-relaxed text-slate-700">${card.text}</p></div></div><div class="flex flex-wrap gap-1.5 mt-3"><span class="text-xs text-slate-500 mr-1 self-center">Classer :</span>${buttons}</div>`;
+        cardsBox.appendChild(article);
+
+        if (assigned) {
+            const item = document.createElement('div');
+            item.className = 'rounded-lg bg-slate-50 border border-slate-100 p-2 text-xs text-slate-700';
+            item.innerText = card.icon + ' ' + card.text;
+            document.getElementById('plats-items-' + assigned).appendChild(item);
+        }
+    });
+
+    Object.keys(platsCategories).forEach(key => {
+        const count = Object.values(platsAssignments).filter(value => value === key).length;
+        const countEl = document.getElementById('plats-count-' + key);
+        if (countEl) countEl.innerText = count;
+    });
+    updatePlatsScore();
+}
+
+function assignPlatsCard(cardId, category) {
+    if (platsAssignments[cardId]) return;
+    const card = platsCards.find(item => item.id === cardId);
+    const feedback = document.getElementById('plats-feedback');
+    if (!card || !feedback) return;
+    if (card.category !== category) {
+        feedback.className = 'text-xs font-bold text-rose-700 mt-1';
+        feedback.innerText = 'Pas encore ! Relis l’indice et demande-toi s’il parle d’un personnage, d’un lieu, d’une action, du temps ou d’un sentiment.';
+        return;
+    }
+    platsAssignments[cardId] = category;
+    feedback.className = 'text-xs font-bold text-emerald-700 mt-1';
+    feedback.innerText = 'Bien joué ! Cet indice est maintenant rangé dans la bonne partie de la recette.';
+    renderPlatsGame();
+    if (Object.keys(platsAssignments).length === platsCards.length) {
+        const reconstruction = document.getElementById('plats-reconstruction');
+        if (reconstruction) reconstruction.classList.remove('hidden');
+        if (feedback) feedback.innerText = '🎉 Bravo ! Tous les indices sont classés. Lis maintenant les cinq étapes pour reconstruire l’histoire.';
+    }
+}
+
+function updatePlatsScore() {
+    const score = document.getElementById('plats-score');
+    if (score) score.innerText = `${Object.keys(platsAssignments).length} / ${platsCards.length}`;
+}
+
+function resetPlatsGame() {
+    platsAssignments = {};
+    const reconstruction = document.getElementById('plats-reconstruction');
+    if (reconstruction) reconstruction.classList.add('hidden');
+    const feedback = document.getElementById('plats-feedback');
+    if (feedback) {
+        feedback.className = 'text-xs text-slate-600 mt-1';
+        feedback.innerText = 'Pour chaque carte, choisis P, L, A, T ou S.';
+    }
+    renderPlatsGame();
+}

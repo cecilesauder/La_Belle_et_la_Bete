@@ -26,6 +26,8 @@ L’onglet Révisions contient deux extraits interactifs pour S2 et un QCM de 40
 
 L’onglet **BD** reprend l’histoire avec des phrases simples et des séquences d’emojis plus détaillées pour aider les élèves à comprendre l’action même par l’image.
 
+L’onglet **PLATS** propose un jeu de classement : l’élève range quinze indices du conte dans les catégories **Personnages, Lieux, Actions, Temps** et **Situation / sentiments**, puis découvre une reconstruction de l’histoire en cinq étapes.
+
 ## Fichiers
 
 - `index.html` : structure et contenu de la page web ;
