@@ -77,25 +77,54 @@
 
         const quizDatabase = {
             s2: [
-                { id: "q1", cat: "s2", q: "Quel mot exprime une frayeur extrême susceptible d'enlever l'usage des sens ?", opts: ["A) La joie", "B) La terreur", "C) La patience"], ans: 1, exp: "La terreur est le degré le plus élevé de la peur." },
-                { id: "q2", cat: "s2", q: "Dans 'il tremblait de frayeur', quelle est la nature du mot 'frayeur' ?", opts: ["A) Nom commun", "B) Adjectif qualificatif", "C) Verbe d'action"], ans: 0, exp: "'frayeur' désigne une émotion, c'est un nom commun." },
-                { id: "q3", cat: "s2", q: "Quel verbe de la peur signifie 'avoir un tremblement involontaire du corps' ?", opts: ["A) Sourire", "B) Frissonner", "C) Flâner"], ans: 1, exp: "Frissonner traduit la réaction physique du corps sous le coup de la peur." }
+                {"id": "q_s2_1", "cat": "s2", "q": "Dans « une Bête si horrible », quel mot montre le plus fortement la peur ?", "opts": ["Bête", "horrible", "une"], "ans": 1, "exp": "« Horrible » indique une grande frayeur devant l’apparence de la Bête."},
+                {"id": "q_s2_2", "cat": "s2", "q": "Dans l’extrait, que signifie « s’évanouir » ?", "opts": ["Perdre connaissance", "Crier de colère", "Courir très vite"], "ans": 0, "exp": "S’évanouir, c’est perdre connaissance sous l’effet d’une émotion ou d’un malaise."},
+                {"id": "q_s2_3", "cat": "s2", "q": "Quel mot exprime une réaction physique de peur ?", "opts": ["Tremblant", "Riche", "Joyeux"], "ans": 0, "exp": "Trembler est une réaction du corps quand on a peur."},
+                {"id": "q_s2_4", "cat": "s2", "q": "Le marchand pense qu’il pourrait être mangé par…", "opts": ["des chevaux", "des loups", "des oiseaux"], "ans": 1, "exp": "Il entend hurler des loups autour de lui."},
+                {"id": "q_s2_5", "cat": "s2", "q": "Quel mot appartient au vocabulaire de la peur ?", "opts": ["hurler", "danser", "chanter"], "ans": 0, "exp": "Les loups qui hurlent rendent la scène inquiétante."},
+                {"id": "q_s2_6", "cat": "s2", "q": "Dans « il mourrait de faim ou de froid », quelle émotion ressent le marchand ?", "opts": ["La peur", "La fierté", "La jalousie"], "ans": 0, "exp": "Il imagine sa mort : il est effrayé et désespéré."},
+                {"id": "q_s2_7", "cat": "s2", "q": "Quelle expression montre que le marchand a très peur ?", "opts": ["à voix faible", "en riant fort", "avec impatience"], "ans": 0, "exp": "Une voix faible peut traduire la peur et la fragilité."},
+                {"id": "q_s2_8", "cat": "s2", "q": "Quel mot ne fait pas partie du vocabulaire de la peur ?", "opts": ["s’évanouir", "tremblant", "déjeuner"], "ans": 2, "exp": "Déjeuner ne décrit pas une émotion ni une réaction de peur."},
+                {"id": "q_s2_9", "cat": "s2", "q": "Dans « il entendait hurler autour de lui », qui hurle ?", "opts": ["Le marchand", "Les loups", "La Bête"], "ans": 1, "exp": "Le texte précise qu’il entend hurler des loups."},
+                {"id": "q_s2_10", "cat": "s2", "q": "La peur du marchand est-elle seulement une impression ?", "opts": ["Non : il est perdu, dans le froid, et entend des loups.", "Oui : il est tranquillement chez lui.", "Oui : il fête son arrivée."], "ans": 0, "exp": "Plusieurs dangers réels s’ajoutent dans cet extrait."}
             ],
             s4: [
-                { id: "q4", cat: "s4", q: "Dans 'La Belle se levait à quatre heures', quel est le verbe conjugué ?", opts: ["A) Belle", "B) levait", "C) heures"], ans: 1, exp: "C'est le verbe pronominal 'se lever' conjugué à l'imparfait." },
-                { id: "q5", cat: "s4", q: "À quel temps du récit est conjugué le verbe 'perdit' dans 'Le marchand perdit son bien' ?", opts: ["A) Présent de l'indicatif", "B) Passé simple", "C) Imparfait"], ans: 1, exp: "C'est la 3ème personne du singulier du passé simple." },
-                { id: "q6", cat: "s4", q: "Quelle est l'infinitif du verbe 'répondirent' ?", opts: ["A) Répondre", "B) Répondir", "C) Repondre"], ans: 0, exp: "Verbe du 3ème groupe : Répondre." }
+                {"id": "q_s4_1", "cat": "s4", "q": "Dans « Le marchand vit venir », quel est le verbe conjugué ?", "opts": ["marchand", "vit", "venir"], "ans": 1, "exp": "« Vit » est le verbe conjugué ; « venir » est à l’infinitif."},
+                {"id": "q_s4_2", "cat": "s4", "q": "Dans « il fut tout près de s’évanouir », quel est le verbe conjugué ?", "opts": ["fut", "près", "s’évanouir"], "ans": 0, "exp": "« Fut » est conjugué au passé simple."},
+                {"id": "q_s4_3", "cat": "s4", "q": "À quel temps est « mourrait » ?", "opts": ["Présent", "Imparfait", "Passé simple"], "ans": 1, "exp": "La terminaison -ait indique l’imparfait."},
+                {"id": "q_s4_4", "cat": "s4", "q": "À quel temps est « entendait » ?", "opts": ["Imparfait", "Futur", "Présent"], "ans": 0, "exp": "« Entendait » décrit une action qui durait dans le passé."},
+                {"id": "q_s4_5", "cat": "s4", "q": "Quel est l’infinitif de « demanda » ?", "opts": ["demander", "demandir", "demanderait"], "ans": 0, "exp": "L’infinitif est « demander »."},
+                {"id": "q_s4_6", "cat": "s4", "q": "Quel est l’infinitif de « se jeta » ?", "opts": ["jeter", "se jeter", "se jetait"], "ans": 1, "exp": "Le verbe pronominal est « se jeter »."},
+                {"id": "q_s4_7", "cat": "s4", "q": "Dans « la Bête arriva », quel est le temps de « arriva » ?", "opts": ["Imparfait", "Passé simple", "Présent"], "ans": 1, "exp": "« Arriva » est au passé simple."},
+                {"id": "q_s4_8", "cat": "s4", "q": "Dans « il demande pardon », quel est le temps de « demande » ?", "opts": ["Présent", "Imparfait", "Passé simple"], "ans": 0, "exp": "« Demande » est au présent de l’indicatif."},
+                {"id": "q_s4_9", "cat": "s4", "q": "Quel verbe est à l’infinitif dans « pour réparer cette faute » ?", "opts": ["êtes", "réparer", "dit"], "ans": 1, "exp": "« Réparer » n’est pas conjugué : c’est un infinitif."},
+                {"id": "q_s4_10", "cat": "s4", "q": "Dans « la Bête lui dit », quel est le verbe conjugué ?", "opts": ["Bête", "lui", "dit"], "ans": 2, "exp": "« Dit » est le verbe conjugué au passé simple."}
             ],
             s6: [
-                { id: "q7", cat: "s6", q: "Quel est le sujet du verbe dans : 'Les deux filles aînées répondirent' ?", opts: ["A) Les deux filles aînées", "B) répondirent", "C) la ville"], ans: 0, exp: "Pour trouver le sujet, on pose la question : 'Qui est-ce qui répondirent ?' -> Les deux filles aînées." },
-                { id: "q8", cat: "s6", q: "Trouvez le sujet inversé dans : 'Soudain surgit une Bête effrayante.'", opts: ["A) Soudain", "B) une Bête effrayante", "C) surgit"], ans: 1, exp: "Le sujet est placé après le verbe : 'Qui est-ce qui surgit ?' -> Une Bête effrayante." }
+                {"id": "q_s6_1", "cat": "s6", "q": "Dans « Le marchand vit venir une Bête », quel est le sujet de « vit » ?", "opts": ["Le marchand", "une Bête", "venir"], "ans": 0, "exp": "C’est le marchand qui voit : il est le sujet de « vit »."},
+                {"id": "q_s6_2", "cat": "s6", "q": "Dans « une Bête si horrible », quel est le sujet de « fut » ?", "opts": ["Le marchand", "une Bête", "horrible"], "ans": 1, "exp": "La Bête est le sujet placé avant le verbe « fut »."},
+                {"id": "q_s6_3", "cat": "s6", "q": "Dans « il pensa qu’il mourrait », quel est le sujet de « pensa » ?", "opts": ["il", "mourrait", "qu’"], "ans": 0, "exp": "« Il » désigne le marchand et commande le verbe « pensa »."},
+                {"id": "q_s6_4", "cat": "s6", "q": "Dans « des loups hurlaient », quel est le sujet ?", "opts": ["hurlaient", "des loups", "le marchand"], "ans": 1, "exp": "Ce sont les loups qui hurlent."},
+                {"id": "q_s6_5", "cat": "s6", "q": "Dans « Le marchand se jeta à genoux », quel est le sujet ?", "opts": ["à genoux", "se jeta", "Le marchand"], "ans": 2, "exp": "Le marchand accomplit l’action de se jeter."},
+                {"id": "q_s6_6", "cat": "s6", "q": "Trouve le sujet inversé : « Soudain surgit une Bête effrayante. »", "opts": ["Soudain", "une Bête effrayante", "surgit"], "ans": 1, "exp": "Le sujet est placé après le verbe : une Bête effrayante surgit."},
+                {"id": "q_s6_7", "cat": "s6", "q": "Dans « lui dit la Bête », quel est le sujet de « dit » ?", "opts": ["lui", "la Bête", "dit"], "ans": 1, "exp": "Dans cette inversion, « la Bête » est le sujet."},
+                {"id": "q_s6_8", "cat": "s6", "q": "Dans « tremblant, il demanda pardon », quel est le sujet de « demanda » ?", "opts": ["tremblant", "il", "pardon"], "ans": 1, "exp": "« Il » représente le marchand."},
+                {"id": "q_s6_9", "cat": "s6", "q": "Dans « les loups qu’il entendait », qui est le sujet de « entendait » ?", "opts": ["les loups", "il", "que"], "ans": 1, "exp": "« Il » est le sujet ; « que » reprend les loups."},
+                {"id": "q_s6_10", "cat": "s6", "q": "Dans « vous me volez mes roses », quel est le sujet ?", "opts": ["vous", "me", "mes roses"], "ans": 0, "exp": "« Vous » désigne la personne qui vole : le marchand."}
             ],
             s9: [
-                { id: "q9", cat: "s9", q: "Dans la phrase 'une Bête si horrible', quelle est la classe grammaticale de 'horrible' ?", opts: ["A) Nom commun", "B) Adjectif qualificatif", "C) Adverbe"], ans: 1, exp: "C'est un adjectif qualificatif qui précise la nature du nom 'Bête'." },
-                { id: "q10", cat: "s9", q: "Dans 'de belles robes de soie', quel mot est un adjectif qualificatif ?", opts: ["A) belles", "B) robes", "C) soie"], ans: 0, exp: "'belles' est l'adjectif qualificatif épithète du nom 'robes'." }
+                {"id": "q_s9_1", "cat": "s9", "q": "Dans « une Bête horrible », quelle est la nature de « Bête » ?", "opts": ["Nom commun", "Adjectif", "Verbe"], "ans": 0, "exp": "Bête désigne un être : c’est un nom commun."},
+                {"id": "q_s9_2", "cat": "s9", "q": "Dans « une Bête horrible », quelle est la nature de « horrible » ?", "opts": ["Nom commun", "Adjectif qualificatif", "Adverbe"], "ans": 1, "exp": "Horrible précise le nom Bête : c’est un adjectif qualificatif."},
+                {"id": "q_s9_3", "cat": "s9", "q": "Dans « une voix faible », quelle est la nature de « faible » ?", "opts": ["Adjectif qualificatif", "Nom propre", "Verbe"], "ans": 0, "exp": "Faible précise le nom voix."},
+                {"id": "q_s9_4", "cat": "s9", "q": "Dans « des loups », quelle est la nature de « loups » ?", "opts": ["Adjectif", "Nom commun", "Pronom"], "ans": 1, "exp": "Loups désigne des animaux : c’est un nom commun."},
+                {"id": "q_s9_5", "cat": "s9", "q": "Dans « un grand bruit », quelle est la nature de « grand » ?", "opts": ["Verbe", "Adjectif qualificatif", "Nom commun"], "ans": 1, "exp": "Grand donne une précision sur le bruit."},
+                {"id": "q_s9_6", "cat": "s9", "q": "Dans « le pauvre animal », quelle est la nature de « pauvre » ?", "opts": ["Adjectif qualificatif", "Nom commun", "Déterminant"], "ans": 0, "exp": "Pauvre caractérise le nom animal."},
+                {"id": "q_s9_7", "cat": "s9", "q": "Dans « une grande quantité », quelle est la nature de « quantité » ?", "opts": ["Nom commun", "Adjectif", "Verbe"], "ans": 0, "exp": "Quantité désigne une chose ou une mesure : c’est un nom."},
+                {"id": "q_s9_8", "cat": "s9", "q": "Dans « la colère terrible », quelle est la nature de « colère » ?", "opts": ["Adjectif", "Nom commun", "Verbe"], "ans": 1, "exp": "Colère désigne une émotion : c’est un nom commun."},
+                {"id": "q_s9_9", "cat": "s9", "q": "Dans « les deux sœurs jalouses », quelle est la nature de « jalouses » ?", "opts": ["Nom commun", "Adjectif qualificatif", "Verbe"], "ans": 1, "exp": "Jalouses caractérise les sœurs."},
+                {"id": "q_s9_10", "cat": "s9", "q": "Dans « un prince magnifique », quelle est la nature de « magnifique » ?", "opts": ["Adjectif qualificatif", "Nom commun", "Pronom"], "ans": 0, "exp": "Magnifique précise le nom prince."}
             ]
         };
-
 
         let activeTextData = fullTextData;
         let activeSource = '1883';
@@ -282,16 +311,20 @@
         }
 
 
-        const fearWordsData = [
-            { text: "horrible", target: true }, { text: "s’évanouir", target: true }, { text: "voix terrible", target: true },
-            { text: "tremblant", target: true }, { text: "frayeur", target: true }, { text: "sifflement épouvantable", target: true },
-            { text: "rose", target: false }, { text: "château", target: false }, { text: "déjeuner", target: false }, { text: "marchand", target: false }
-        ];
-        const angerWordsData = [
-            { text: "ingrat", target: true }, { text: "faute", target: true }, { text: "mourir", target: true }, { text: "furie", target: true },
-            { text: "menace", target: true }, { text: "terrible", target: true }, { text: "pardonner", target: false }, { text: "rose", target: false },
-            { text: "chocolat", target: false }, { text: "bonté", target: false }
-        ];
+        // S2 : sélection de mots directement dans deux extraits du conte.
+        const fearExcerpt = "Le marchand vit venir à lui une Bête si horrible qu’il fut tout près de s’évanouir. Il pensa qu’il mourrait de faim ou de froid, et qu’il serait mangé par des loups qu’il entendait hurler autour de lui. Tremblant, il demanda pardon à la Bête d’une voix faible.";
+        const angerExcerpt = "« Vous êtes bien ingrat ! » lui dit la Bête d’une voix terrible. « Vous me volez mes roses. Il faut mourir pour réparer cette faute ! » Le marchand se jeta à genoux et demanda pardon.";
+        const fearTargets = new Set(["horrible", "s’évanouir", "mourrait", "faim", "froid", "mangé", "loups", "hurler", "tremblant", "faible"]);
+        const angerTargets = new Set(["ingrat", "terrible", "volez", "mourir", "faute"]);
+        function excerptTokens(text, targets) {
+            return text.split(/(\s+)/).filter(Boolean).map((part) => {
+                if (/^\s+$/.test(part)) return { text: part, target: false, punctuation: true };
+                const clean = part.toLocaleLowerCase('fr-FR').replace(/^[«»“”"'—–,;:.!?()]+|[«»“”"'—–,;:.!?()]+$/g, '');
+                return { text: part, target: targets.has(clean), punctuation: false };
+            });
+        }
+        const fearWordsData = excerptTokens(fearExcerpt, fearTargets);
+        const angerWordsData = excerptTokens(angerExcerpt, angerTargets);
 
         // WORD-CLASSIFICATION EXERCISES : S2 PEUR / COLÈRE
         function renderWordExercise(kind, data, boxId, countId, feedbackId) {
@@ -299,9 +332,13 @@
             if (!container) return;
             container.innerHTML = '';
             data.forEach((item, idx) => {
+                if (item.punctuation) {
+                    container.appendChild(document.createTextNode(item.text));
+                    return;
+                }
                 const span = document.createElement('button');
                 span.type = 'button';
-                span.className = 'cursor-pointer hover:bg-white px-2 py-1 rounded-lg transition inline-block m-1 border border-transparent font-serif text-left';
+                span.className = 'cursor-pointer hover:bg-white px-1 py-0.5 rounded-lg transition inline-block border border-transparent font-serif text-left';
                 span.innerText = item.text;
                 span.onclick = () => toggleWord(kind, idx, span);
                 container.appendChild(span);
@@ -328,7 +365,7 @@
         function updateWordCount(kind, data, countId, feedbackId) {
             const found = data.filter(d => d.target && d.selected).length;
             const wrong = data.filter(d => !d.target && d.selected).length;
-            const total = data.filter(d => d.target).length;
+            const total = data.filter(d => d.target && !d.punctuation).length;
             const count = document.getElementById(countId); if (count) count.innerText = `${found} / ${total}`;
             const feedback = document.getElementById(feedbackId); if (!feedback) return;
             if (found === total && wrong === 0) { feedback.className = 'text-xs font-bold text-emerald-600'; feedback.innerText = '🎉 Bravo, tout est juste !'; }

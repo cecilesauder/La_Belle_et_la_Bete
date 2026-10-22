@@ -17,12 +17,14 @@ Les deux textes sont conservés séparément afin de respecter les formulations,
 
 Les exercices sont communs aux deux éditions et suivent les séances d’étude de la langue demandées :
 
-- **S2 — vocabulaire de la peur** : repérer les mots exprimant la peur, la terreur ou la fureur ;
+- **S2 — vocabulaire de la peur** : repérer les mots exprimant la peur dans un extrait du passage où le marchand rencontre la Bête ; un second extrait permet de distinguer la colère et la menace ;
 - **S4 — verbe conjugué** : reconnaître le verbe conjugué et son temps ;
 - **S6 — sujet du verbe** : identifier le sujet, y compris lorsque le sujet est inversé ;
 - **S9 — noms et adjectifs** : distinguer les classes grammaticales et repérer les adjectifs qualificatifs.
 
-L’onglet Révisions contient le champ lexical interactif et un QCM de 10 questions réparties entre S2, S4, S6 et S9.
+L’onglet Révisions contient deux extraits interactifs pour S2 et un QCM de 40 questions : 10 questions pour chacune des séances S2, S4, S6 et S9.
+
+L’onglet **BD** reprend l’histoire avec des phrases simples et des séquences d’emojis plus détaillées pour aider les élèves à comprendre l’action même par l’image.
 
 ## Fichiers
 
