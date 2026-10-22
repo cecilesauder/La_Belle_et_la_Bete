@@ -485,7 +485,7 @@
         }
 
 
-// JEU PLATS : reconstruire l'histoire à partir de cinq catégories.
+// JEU PLATS : reconstruire l'histoire avec des cartes mélangées et cinq zones de dépôt.
 const platsCategories = {
     P: { label: 'Personnages', icon: '👥', color: 'rose' },
     L: { label: 'Lieux', icon: '📍', color: 'sky' },
@@ -493,7 +493,6 @@ const platsCategories = {
     T: { label: 'Temps', icon: '⏳', color: 'emerald' },
     S: { label: 'Situation / sentiments', icon: '💭', color: 'violet' }
 };
-
 const platsCards = [
     { id: 'p1', category: 'P', icon: '👨‍👧‍👦', text: 'Le marchand et ses six enfants : Belle, ses sœurs et ses frères.' },
     { id: 'p2', category: 'P', icon: '👹', text: 'La Bête paraît effrayante, mais elle est généreuse et bonne.' },
@@ -505,71 +504,97 @@ const platsCards = [
     { id: 'a2', category: 'A', icon: '🌹', text: 'Le père cueille une rose ; Belle se propose pour sauver son père.' },
     { id: 'a3', category: 'A', icon: '✨', text: 'Belle avoue son amour : la Bête devient un prince.' },
     { id: 't1', category: 'T', icon: '❄️🌙', text: 'Une nuit d’hiver, dans la neige et le froid, le père se perd.' },
-    { id: 't2', category: 'T', icon: '📅', text: 'Belle doit rester trois mois auprès de la Bête, puis obtient huit jours.' },
-    { id: 't3', category: 'T', icon: '🌙⏰', text: 'Le soir venu, Belle attend la Bête et comprend qu’elle est en danger.' },
+    { id: 't2', category: 'T', icon: '📅', text: 'Belle reste trois mois auprès de la Bête, puis promet huit jours.' },
+    { id: 't3', category: 'T', icon: '🌙⏰', text: 'La dixième nuit chez son père, Belle rêve que la Bête est mourante.' },
     { id: 's1', category: 'S', icon: '😟', text: 'Situation initiale : une famille riche vit heureuse avant la ruine.' },
     { id: 's2', category: 'S', icon: '❤️', text: 'Belle agit par amour pour son père et découvre la bonté derrière l’apparence.' },
     { id: 's3', category: 'S', icon: '🗿🗿', text: 'Situation finale : le prince épouse Belle ; les sœurs deviennent des statues.' }
 ];
 let platsAssignments = {};
+let platsShuffledIds = [];
+let platsDraggedId = null;
+
+function shufflePlatsCards() {
+    platsShuffledIds = platsCards.map(card => card.id);
+    for (let i = platsShuffledIds.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [platsShuffledIds[i], platsShuffledIds[j]] = [platsShuffledIds[j], platsShuffledIds[i]];
+    }
+}
 
 function renderPlatsGame() {
     const cardsBox = document.getElementById('plats-cards');
     const columnsBox = document.getElementById('plats-columns');
     if (!cardsBox || !columnsBox) return;
+    if (!platsShuffledIds.length) shufflePlatsCards();
     cardsBox.innerHTML = '';
     columnsBox.innerHTML = '';
 
     Object.entries(platsCategories).forEach(([key, category]) => {
         const column = document.createElement('div');
         column.id = 'plats-column-' + key;
-        column.className = 'rounded-2xl border border-slate-200 bg-white p-3 min-h-32 shadow-sm';
-        column.innerHTML = `<div class="flex items-center justify-between border-b border-slate-100 pb-2 mb-2"><h4 class="font-bold text-slate-800">${category.icon} ${key} · ${category.label}</h4><span id="plats-count-${key}" class="text-xs font-bold text-slate-500">0</span></div><div id="plats-items-${key}" class="space-y-2"></div>`;
+        column.dataset.category = key;
+        column.className = 'rounded-2xl border-2 border-dashed border-slate-300 bg-white p-3 min-h-40 shadow-sm transition hover:border-amber-400 hover:bg-amber-50/40';
+        column.ondragover = event => event.preventDefault();
+        column.ondrop = event => { event.preventDefault(); assignPlatsCard(platsDraggedId, key); };
+        column.innerHTML = `<div class="flex items-center justify-between border-b border-slate-100 pb-2 mb-2"><h4 class="font-bold text-slate-800">${category.icon} ${key} · ${category.label}</h4><span id="plats-count-${key}" class="text-xs font-bold text-slate-500">0 / 3</span></div><p class="text-[11px] text-slate-400 mb-2">Dépose les cartes ici</p><div id="plats-items-${key}" class="space-y-2"></div>`;
         columnsBox.appendChild(column);
     });
 
-    platsCards.forEach(card => {
-        const assigned = platsAssignments[card.id];
+    platsShuffledIds.forEach(id => {
+        if (platsAssignments[id]) return;
+        const card = platsCards.find(item => item.id === id);
         const article = document.createElement('article');
-        article.className = 'rounded-2xl border p-4 shadow-sm transition ' + (assigned ? 'border-emerald-300 bg-emerald-50' : 'border-amber-200 bg-white hover:-translate-y-0.5');
-        const buttons = Object.keys(platsCategories).map(key => `<button type="button" onclick="assignPlatsCard('${card.id}', '${key}')" class="rounded-lg border px-2 py-1 text-xs font-bold transition ${assigned ? 'opacity-50 cursor-not-allowed' : 'hover:bg-amber-50'}" ${assigned ? 'disabled' : ''}>${key}</button>`).join('');
-        article.innerHTML = `<div class="flex items-start gap-3"><span class="text-3xl">${card.icon}</span><div><span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Indice ${platsCards.indexOf(card) + 1}</span><p class="text-sm leading-relaxed text-slate-700">${card.text}</p></div></div><div class="flex flex-wrap gap-1.5 mt-3"><span class="text-xs text-slate-500 mr-1 self-center">Classer :</span>${buttons}</div>`;
+        article.draggable = true;
+        article.dataset.cardId = card.id;
+        article.className = 'rounded-2xl border border-amber-200 bg-amber-50 p-4 shadow-sm cursor-grab active:cursor-grabbing hover:-translate-y-0.5 transition';
+        article.ondragstart = () => { platsDraggedId = card.id; };
+        article.ondragend = () => { platsDraggedId = null; };
+        article.onclick = () => {
+            platsDraggedId = card.id;
+            document.querySelectorAll('#plats-columns > div').forEach(zone => zone.classList.add('ring-2', 'ring-amber-300'));
+            const feedback = document.getElementById('plats-feedback');
+            if (feedback) feedback.innerText = 'Carte sélectionnée : choisis maintenant la case P, L, A, T ou S.';
+        };
+        article.innerHTML = `<div class="flex items-start gap-3"><span class="text-3xl">${card.icon}</span><div><span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Carte à déplacer</span><p class="text-sm leading-relaxed text-slate-700">${card.text}</p></div></div><p class="text-[11px] text-amber-700 mt-3">↕ Glisser vers une case</p>`;
         cardsBox.appendChild(article);
-
-        if (assigned) {
-            const item = document.createElement('div');
-            item.className = 'rounded-lg bg-slate-50 border border-slate-100 p-2 text-xs text-slate-700';
-            item.innerText = card.icon + ' ' + card.text;
-            document.getElementById('plats-items-' + assigned).appendChild(item);
-        }
     });
 
+    Object.entries(platsAssignments).forEach(([cardId, assigned]) => {
+        const card = platsCards.find(item => item.id === cardId);
+        const item = document.createElement('div');
+        item.className = 'rounded-lg bg-emerald-50 border border-emerald-200 p-2 text-xs text-slate-700';
+        item.innerText = card.icon + ' ' + card.text;
+        document.getElementById('plats-items-' + assigned).appendChild(item);
+    });
     Object.keys(platsCategories).forEach(key => {
         const count = Object.values(platsAssignments).filter(value => value === key).length;
         const countEl = document.getElementById('plats-count-' + key);
-        if (countEl) countEl.innerText = count;
+        if (countEl) countEl.innerText = `${count} / 3`;
     });
     updatePlatsScore();
 }
 
 function assignPlatsCard(cardId, category) {
-    if (platsAssignments[cardId]) return;
+    if (!cardId || platsAssignments[cardId]) return;
     const card = platsCards.find(item => item.id === cardId);
     const feedback = document.getElementById('plats-feedback');
+    document.querySelectorAll('#plats-columns > div').forEach(zone => zone.classList.remove('ring-2', 'ring-amber-300'));
+    platsDraggedId = null;
     if (!card || !feedback) return;
     if (card.category !== category) {
         feedback.className = 'text-xs font-bold text-rose-700 mt-1';
-        feedback.innerText = 'Pas encore ! Relis l’indice et demande-toi s’il parle d’un personnage, d’un lieu, d’une action, du temps ou d’un sentiment.';
+        feedback.innerText = 'Essaie encore : cette carte ne correspond pas à cette case. Relis l’indice.';
         return;
     }
     platsAssignments[cardId] = category;
     feedback.className = 'text-xs font-bold text-emerald-700 mt-1';
-    feedback.innerText = 'Bien joué ! Cet indice est maintenant rangé dans la bonne partie de la recette.';
+    feedback.innerText = 'Bien joué ! La carte est dans la bonne case.';
     renderPlatsGame();
     if (Object.keys(platsAssignments).length === platsCards.length) {
         const reconstruction = document.getElementById('plats-reconstruction');
         if (reconstruction) reconstruction.classList.remove('hidden');
-        if (feedback) feedback.innerText = '🎉 Bravo ! Tous les indices sont classés. Lis maintenant les cinq étapes pour reconstruire l’histoire.';
+        feedback.innerText = '🎉 Bravo ! Tous les ingrédients sont classés. Lis maintenant les cinq étapes pour reconstruire l’histoire.';
     }
 }
 
@@ -580,12 +605,14 @@ function updatePlatsScore() {
 
 function resetPlatsGame() {
     platsAssignments = {};
+    platsDraggedId = null;
+    shufflePlatsCards();
     const reconstruction = document.getElementById('plats-reconstruction');
     if (reconstruction) reconstruction.classList.add('hidden');
     const feedback = document.getElementById('plats-feedback');
     if (feedback) {
         feedback.className = 'text-xs text-slate-600 mt-1';
-        feedback.innerText = 'Pour chaque carte, choisis P, L, A, T ou S.';
+        feedback.innerText = 'Les cartes sont mélangées. Attrape une carte et dépose-la dans P, L, A, T ou S. Sur téléphone, touche une carte puis une case.';
     }
     renderPlatsGame();
 }

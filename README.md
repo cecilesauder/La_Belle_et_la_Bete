@@ -28,6 +28,10 @@ L’onglet **BD** reprend l’histoire avec des phrases simples et des séquence
 
 L’onglet **PLATS** propose un jeu de classement : l’élève range quinze indices du conte dans les catégories **Personnages, Lieux, Actions, Temps** et **Situation / sentiments**, puis découvre une reconstruction de l’histoire en cinq étapes.
 
+La frise du résumé utilise désormais des repères concrets de l’édition Barba 1806 : un an à la campagne, quatre heures du matin, deux mois, trente milles, onze heures, minuit passé, dix heures du matin, un quart d’heure, trois mois, neuf heures, huit jours et la dixième nuit.
+
+Dans le jeu PLATS, les quinze cartes sont mélangées et doivent être glissées dans cinq zones de dépôt. Une sélection par toucher est également prévue pour les téléphones et tablettes.
+
 ## Fichiers
 
 - `index.html` : structure et contenu de la page web ;
